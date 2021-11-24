@@ -22,8 +22,32 @@ type ExampleReply struct {
 	Y int
 }
 
-// Add your RPC definitions here.
+// DistrubuteTaskArgs Add your RPC definitions here.
+type DistrubuteTaskArgs struct {
+}
 
+type DistrubuteTaskReply struct {
+	TaskType               int
+	TaskNumber             int
+	IntermediateFilePrefix string
+	MT                     *MapTask
+	RT                     *ReduceTask
+}
+
+type TaskError struct {
+	info string
+}
+
+func (d TaskError) Error() string {
+	return d.info
+}
+
+type FinishTaskArgs struct {
+	TaskType   int
+	TaskNumber int
+}
+
+type FinishTaskReply struct{}
 
 // Cook up a unique-ish UNIX-domain socket name
 // in /var/tmp, for the coordinator.
