@@ -219,18 +219,10 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 	}
 	DPrintf("{node %v} service start: command:%v", rf.me, command)
 	index = len(rf.log)
-	//if rf.currentTerm == rf.log[len(rf.log)-1].Term && command == rf.log[len(rf.log) - 1].Command {
-	//	// 命令相同，不写
-	//
-	//} else {
-	//	rf.log = append(rf.log, Entry{Command: command, Term: term})
-	//}
 	rf.log = append(rf.log, Entry{Command: command, Term: term})
 	DPrintf("cuurent leader %v's log %v", rf.me, rf.log)
 	rf.matchIndex[rf.me] = index
 	rf.nextIndex[rf.me] = index
-	rf.broadcastHeartBeat()
-	rf.heartbeatTimer.Reset(HEART_BEAT_TIMEOUT)
 	return index, term, isLeader
 }
 

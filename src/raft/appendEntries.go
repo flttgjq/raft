@@ -85,7 +85,7 @@ func (rf *Raft) handleReply(server int, reply *AppendEntriesReply) {
 		}
 	} else {
 		rf.nextIndex[server]-- // 将nextindex-1重试
-		rf.broadcastHeartBeat()
+		//rf.broadcastHeartBeat()
 	}
 }
 
@@ -126,7 +126,7 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 		reply.Term, reply.Success = rf.currentTerm, false
 		return
 	} else if args.PrevLogTerm != rf.log[args.PrevLogIndex].Term {
-		// 包含prevlogindex但term不一致, 不匹配
+		// 包含prevlogindex但term不一致, 不匹配S
 		reply.Term, reply.Success = rf.currentTerm, false
 		return
 	}
