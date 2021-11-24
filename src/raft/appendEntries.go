@@ -70,8 +70,6 @@ func (rf *Raft) handleReply(server int, reply *AppendEntriesReply) {
 	if reply.Success {
 		rf.nextIndex[server] = len(rf.log) // 更新至leader的最新log+1
 		rf.matchIndex[server] = len(rf.log) - 1
-		//rf.nextIndex[server] = rf.commitIndex + 1 // 更新至leader的最新log+1
-		//rf.matchIndex[server] = rf.commitIndex
 		numCommit := 0
 		for i := 0; i < len(rf.peers); i++ {
 			if rf.matchIndex[i] >= rf.matchIndex[server] {
