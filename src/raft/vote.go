@@ -39,8 +39,8 @@ func (rf *Raft) startElection() {
 				if rf.currentTerm == request.Term && rf.meState == CANDIDATE {
 					if response.VoteGranted {
 						grantedVotes += 1
-						if grantedVotes >= len(rf.peers)/2 {
-							DPrintf("{Node %v} receives majority votes in Term %v", rf.me, rf.currentTerm)
+						if grantedVotes > len(rf.peers)/2 {
+							DPrintf("{Node %v} receives majority votes in Term %v, receives %v vote", rf.me, rf.currentTerm, grantedVotes)
 							rf.meState = LEADER
 							rf.broadcastHeartBeat()
 							rf.heartbeatTimer.Reset(HEART_BEAT_TIMEOUT)
@@ -87,6 +87,7 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 		//return
 	}
 	if !rf.isLogUpToDate(args.LastLogTerm, args.LastLogIndex) {
+		DPrintf("node %v refuse to vote node %v because is not up to date", rf.me, args.CandidateId)
 		reply.Term, reply.VoteGranted = rf.currentTerm, false
 		return
 	}
@@ -101,13 +102,24 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 // isLogUpToDate check log
 func (rf *Raft) isLogUpToDate(lastLogTerm int, lastLogIndex int) bool {
 	//println(lastLogIndex, lastLogTerm, rf.currentTerm, len(rf.log))
-	if lastLogIndex < rf.commitIndex { // 因为log坐标从1开始计数，把logIndex + 1
-		DPrintf("2")
+	//if lastLogIndex < rf.commitIndex { // 因为log坐标从1开始计数，把logIndex + 1
+	//	DPrintf("2")
+	//	return false
+	//}
+	//if lastLogTerm < rf.log[rf.commitIndex].Term {
+	//	// 候选者的log的term更小 拒绝
+	//	DPrintf("1")
+	//	return false
+	//}
+	//return true
+
+	if lastLogTerm > rf.log[len(rf.log)-1].Term {
+		return true
+	}
+	if lastLogTerm < rf.log[len(rf.log)-1].Term {
 		return false
 	}
-	if lastLogTerm < rf.log[rf.commitIndex].Term {
-		// 候选者的log的term更小 拒绝
-		DPrintf("1")
+	if lastLogIndex < len(rf.log)-1 {
 		return false
 	}
 	return true
@@ -151,8 +163,10 @@ func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, reply *Reques
 // generate RequestVoteArgs
 func (rf *Raft) genVoteArgs() *RequestVoteArgs {
 	return &RequestVoteArgs{Term: rf.currentTerm,
-		CandidateId:  rf.me,
-		LastLogTerm:  rf.log[rf.commitIndex].Term,
-		LastLogIndex: rf.commitIndex,
+		CandidateId: rf.me,
+		//LastLogTerm:  rf.log[rf.commitIndex].Term,
+		//LastLogIndex: rf.commitIndex,
+		LastLogTerm:  rf.log[len(rf.log)-1].Term,
+		LastLogIndex: len(rf.log) - 1,
 	}
 }

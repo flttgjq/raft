@@ -63,7 +63,7 @@ func (rf *Raft) handleReply(server int, reply *AppendEntriesReply) {
 		rf.meState = FOLLOWER
 		rf.currentTerm = reply.Term
 		rf.votedFor = -1
-		//rf.electionTimer.Reset(generateRandTime())
+		rf.electionTimer.Reset(generateRandTime())
 		return
 	}
 
@@ -74,7 +74,7 @@ func (rf *Raft) handleReply(server int, reply *AppendEntriesReply) {
 		for i := 0; i < len(rf.peers); i++ {
 			if rf.matchIndex[i] >= rf.matchIndex[server] {
 				numCommit++
-				if numCommit > len(rf.peers)/2 && rf.log[rf.matchIndex[server]].Term == rf.currentTerm && rf.commitIndex < rf.matchIndex[server] {
+				if numCommit > (len(rf.peers)/2) && rf.log[rf.matchIndex[server]].Term == rf.currentTerm && rf.commitIndex < rf.matchIndex[server] {
 					// 原则：只提交自己任期内的log
 					//      一条log只提交1次
 					//      只有多数同一在提交
@@ -137,9 +137,9 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 	}
 
 	if args.Entries != nil {
-		DPrintf("append %v %v", args.Entries, rf.log[args.PrevLogIndex])
+		//DPrintf("append %v %v", args.Entries, rf.log[args.PrevLogIndex])
 		rf.log = append(rf.log, args.Entries...)
-		DPrintf("node {%v}'s log %v", rf.me, rf.log)
+		//DPrintf("node {%v}'s log %v", rf.me, rf.log)
 	}
 
 	if rf.commitIndex < args.LeaderCommit {

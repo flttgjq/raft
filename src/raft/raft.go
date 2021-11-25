@@ -220,7 +220,7 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 	DPrintf("{node %v} service start: command:%v", rf.me, command)
 	index = len(rf.log)
 	rf.log = append(rf.log, Entry{Command: command, Term: term})
-	DPrintf("cuurent leader %v's log %v", rf.me, rf.log)
+	//DPrintf("cuurent leader %v's log %v", rf.me, rf.log)
 	rf.matchIndex[rf.me] = index
 	rf.nextIndex[rf.me] = index
 	return index, term, isLeader
@@ -288,7 +288,7 @@ func (rf *Raft) ticker() {
 //
 func Make(peers []*labrpc.ClientEnd, me int,
 	persister *Persister, applyCh chan ApplyMsg) *Raft {
-	DPrintf("create server len= %v", len(peers))
+	//DPrintf("create server len= %v", len(peers))
 	rf := &Raft{
 		peers:          peers,
 		persister:      persister,
