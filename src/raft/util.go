@@ -15,7 +15,6 @@ func DPrintf(format string, a ...interface{}) (n int, err error) {
 }
 
 func (rf *Raft) ifPrevLogEntryExist(prevLogTerm int, prevLogIndex int) bool {
-	DPrintf("rf.log.length=%v", len(rf.log))
 	if len(rf.log) < prevLogIndex {
 		return false
 	}

@@ -26,7 +26,7 @@ func (rf *Raft) startElection() {
 	request := rf.genVoteArgs()
 	grantedVotes := 1
 	rf.votedFor = rf.me
-	//rf.persist()
+	rf.persist()
 	for peer := range rf.peers {
 		if peer == rf.me {
 			continue
@@ -41,17 +41,19 @@ func (rf *Raft) startElection() {
 						grantedVotes += 1
 						if grantedVotes > len(rf.peers)/2 {
 							DPrintf("{Node %v} receives majority votes in Term %v, receives %v vote", rf.me, rf.currentTerm, grantedVotes)
-							rf.meState = LEADER
-							rf.broadcastHeartBeat()
-							rf.heartbeatTimer.Reset(HEART_BEAT_TIMEOUT)
 							for i := range rf.peers {
 								if i == rf.me {
 									continue
 								}
-								rf.votedFor = -1
-								rf.nextIndex[i] = rf.commitIndex + 1
+								//rf.nextIndex[i] = rf.commitIndex + 1
+								rf.nextIndex[i] = len(rf.log)
 								rf.matchIndex[i] = 0
 							}
+							rf.meState = LEADER
+							rf.votedFor = -1
+							rf.persist()
+							rf.broadcastHeartBeat()
+							rf.heartbeatTimer.Reset(HEART_BEAT_TIMEOUT)
 						}
 					} else if response.Term > rf.currentTerm {
 						//DPrintf("{Node %v} finds a new leader {Node %v} with Term %v and steps down in Term %v", rf.me, peer, response.Term, rf.currentTerm)
@@ -84,6 +86,7 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 		DPrintf("")
 		rf.meState = FOLLOWER
 		rf.currentTerm, rf.votedFor = args.Term, -1
+		rf.persist()
 		//return
 	}
 	if !rf.isLogUpToDate(args.LastLogTerm, args.LastLogIndex) {
@@ -94,6 +97,7 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 	// granted
 	rf.electionTimer.Reset(generateRandTime())
 	rf.votedFor = args.CandidateId
+	rf.persist()
 	reply.VoteGranted = true
 	//DPrintf("agree")
 	reply.Term = args.Term
@@ -101,18 +105,6 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 
 // isLogUpToDate check log
 func (rf *Raft) isLogUpToDate(lastLogTerm int, lastLogIndex int) bool {
-	//println(lastLogIndex, lastLogTerm, rf.currentTerm, len(rf.log))
-	//if lastLogIndex < rf.commitIndex { // 因为log坐标从1开始计数，把logIndex + 1
-	//	DPrintf("2")
-	//	return false
-	//}
-	//if lastLogTerm < rf.log[rf.commitIndex].Term {
-	//	// 候选者的log的term更小 拒绝
-	//	DPrintf("1")
-	//	return false
-	//}
-	//return true
-
 	if lastLogTerm > rf.log[len(rf.log)-1].Term {
 		return true
 	}
@@ -163,9 +155,7 @@ func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, reply *Reques
 // generate RequestVoteArgs
 func (rf *Raft) genVoteArgs() *RequestVoteArgs {
 	return &RequestVoteArgs{Term: rf.currentTerm,
-		CandidateId: rf.me,
-		//LastLogTerm:  rf.log[rf.commitIndex].Term,
-		//LastLogIndex: rf.commitIndex,
+		CandidateId:  rf.me,
 		LastLogTerm:  rf.log[len(rf.log)-1].Term,
 		LastLogIndex: len(rf.log) - 1,
 	}

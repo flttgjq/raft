@@ -9,19 +9,22 @@ type AppendEntriesArgs struct {
 	PrevLogTerm  int
 	Entries      []Entry // log entries to store
 	LeaderCommit int     // leader commits index
-
 }
 
 // AppendEntriesReply
 // For AppendEntriesRPC
 type AppendEntriesReply struct {
-	Term        int  // current Term
-	Success     bool //
-	CommitIndex int
+	Term          int  // current Term
+	Success       bool //
+	ConflictIndex int
+	ConflictTerm  int
 }
 
 func (rf *Raft) broadcastHeartBeat() {
 	for peer := range rf.peers {
+		if rf.meState != LEADER {
+			break
+		}
 		if peer == rf.me {
 			rf.electionTimer.Reset(generateRandTime())
 			continue
@@ -44,13 +47,13 @@ func (rf *Raft) broadcastHeartBeat() {
 			reply := AppendEntriesReply{}
 			ok := rf.sendAppendEntries(peer, &args, &reply)
 			if ok {
-				rf.handleReply(peer, &reply)
+				rf.handleReply(peer, &args, &reply)
 			}
 		}(peer)
 	}
 }
 
-func (rf *Raft) handleReply(server int, reply *AppendEntriesReply) {
+func (rf *Raft) handleReply(server int, args *AppendEntriesArgs, reply *AppendEntriesReply) {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
 
@@ -63,13 +66,15 @@ func (rf *Raft) handleReply(server int, reply *AppendEntriesReply) {
 		rf.meState = FOLLOWER
 		rf.currentTerm = reply.Term
 		rf.votedFor = -1
+		rf.persist()
 		rf.electionTimer.Reset(generateRandTime())
 		return
 	}
 
 	if reply.Success {
 		rf.nextIndex[server] = len(rf.log) // 更新至leader的最新log+1
-		rf.matchIndex[server] = len(rf.log) - 1
+		//rf.matchIndex[server] = len(rf.log) - 1
+		rf.matchIndex[server] = args.PrevLogIndex + len(args.Entries)
 		numCommit := 0
 		for i := 0; i < len(rf.peers); i++ {
 			if rf.matchIndex[i] >= rf.matchIndex[server] {
@@ -84,8 +89,24 @@ func (rf *Raft) handleReply(server int, reply *AppendEntriesReply) {
 			}
 		}
 	} else {
-		rf.nextIndex[server]-- // 将nextindex-1重试
-		//rf.broadcastHeartBeat()
+		if reply.ConflictTerm != -1 {
+			// term conflict
+			conflictIndex := -1
+			for i := args.PrevLogIndex; i > 0; i-- {
+				if rf.log[i].Term == reply.ConflictTerm {
+					conflictIndex = i
+					break
+				}
+			}
+			if conflictIndex == -1 {
+				rf.nextIndex[server] = reply.ConflictIndex
+			} else {
+				rf.nextIndex[server] = conflictIndex + 1
+			}
+		} else {
+			rf.nextIndex[server] = reply.ConflictIndex
+		}
+		//rf.nextIndex[server]-- // 将nextindex-1重试
 	}
 }
 
@@ -120,25 +141,36 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 	rf.meState = FOLLOWER
 	rf.votedFor = -1
 	rf.electionTimer.Reset(generateRandTime())
+	rf.persist()
 
 	if len(rf.log)-1 < args.PrevLogIndex {
 		// 如果log不包含prevlogindex
 		reply.Term, reply.Success = rf.currentTerm, false
+		reply.ConflictIndex, reply.ConflictTerm = len(rf.log), -1
 		return
 	} else if args.PrevLogTerm != rf.log[args.PrevLogIndex].Term {
 		// 包含prevlogindex但term不一致, 不匹配S
 		reply.Term, reply.Success = rf.currentTerm, false
+		reply.ConflictTerm = rf.log[args.PrevLogIndex].Term
+		for i := 0; i <= args.PrevLogIndex; i++ {
+			if rf.log[i].Term == reply.ConflictTerm {
+				reply.ConflictIndex = i
+				break
+			}
+		}
 		return
 	}
 
 	// 此时已经包含了prevlogindex, 检查是否是log的最后一个元素
 	if args.PrevLogIndex != len(rf.log)-1 {
 		rf.log = rf.log[:args.PrevLogIndex+1] // 删除之后的所有
+		rf.persist()
 	}
 
 	if args.Entries != nil {
 		//DPrintf("append %v %v", args.Entries, rf.log[args.PrevLogIndex])
 		rf.log = append(rf.log, args.Entries...)
+		rf.persist()
 		//DPrintf("node {%v}'s log %v", rf.me, rf.log)
 	}
 

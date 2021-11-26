@@ -18,8 +18,9 @@ package raft
 //
 
 import (
+	"6.824/labgob"
+	"bytes"
 	"math/rand"
-
 	//	"bytes"
 	"sync"
 	"sync/atomic"
@@ -104,7 +105,7 @@ type Raft struct {
 	// state a Raft server must maintain.
 }
 
-func (rf *Raft) change_state(state int) {
+func (rf *Raft) changeState(state int) {
 	rf.meState = state
 }
 
@@ -132,13 +133,21 @@ func (rf *Raft) GetState() (int, bool) {
 //
 func (rf *Raft) persist() {
 	// Your code here (2C).
-	// Example:
-	// w := new(bytes.Buffer)
-	// e := labgob.NewEncoder(w)
-	// e.Encode(rf.xxx)
-	// e.Encode(rf.yyy)
-	// data := w.Bytes()
-	// rf.persister.SaveRaftState(data)
+	buffer := new(bytes.Buffer)
+	enc := labgob.NewEncoder(buffer)
+	err := enc.Encode(rf.log)
+	if err != nil {
+		return
+	}
+	err = enc.Encode(rf.votedFor)
+	if err != nil {
+		return
+	}
+	err = enc.Encode(rf.currentTerm)
+	if err != nil {
+		return
+	}
+	rf.persister.SaveRaftState(buffer.Bytes())
 }
 
 //
@@ -149,18 +158,18 @@ func (rf *Raft) readPersist(data []byte) {
 		return
 	}
 	// Your code here (2C).
-	// Example:
-	// r := bytes.NewBuffer(data)
-	// d := labgob.NewDecoder(r)
-	// var xxx
-	// var yyy
-	// if d.Decode(&xxx) != nil ||
-	//    d.Decode(&yyy) != nil {
-	//   error...
-	// } else {
-	//   rf.xxx = xxx
-	//   rf.yyy = yyy
-	// }
+	read := bytes.NewBuffer(data)
+	decoder := labgob.NewDecoder(read)
+	var votedFor int
+	var log []Entry
+	var currentTerm int
+	if decoder.Decode(&log) != nil || decoder.Decode(&votedFor) != nil || decoder.Decode(&currentTerm) != nil {
+		return
+	} else {
+		rf.votedFor = votedFor
+		rf.log = log
+		rf.currentTerm = currentTerm
+	}
 }
 
 // CondInstallSnapshot
@@ -220,6 +229,7 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 	DPrintf("{node %v} service start: command:%v", rf.me, command)
 	index = len(rf.log)
 	rf.log = append(rf.log, Entry{Command: command, Term: term})
+	rf.persist()
 	//DPrintf("cuurent leader %v's log %v", rf.me, rf.log)
 	rf.matchIndex[rf.me] = index
 	rf.nextIndex[rf.me] = index
@@ -255,12 +265,12 @@ func (rf *Raft) ticker() {
 		// Your code here to check if a leader election should
 		// be started and to randomize sleeping time using
 		// time.Sleep().
-		//state := rf.meState
 		select {
 		case <-rf.electionTimer.C:
 			rf.mu.Lock()
 			rf.meState = CANDIDATE
 			rf.currentTerm += 1
+			rf.persist()
 			rf.startElection()
 			rf.electionTimer.Reset(generateRandTime()) // 重设超时时间
 			rf.mu.Unlock()
@@ -288,7 +298,6 @@ func (rf *Raft) ticker() {
 //
 func Make(peers []*labrpc.ClientEnd, me int,
 	persister *Persister, applyCh chan ApplyMsg) *Raft {
-	//DPrintf("create server len= %v", len(peers))
 	rf := &Raft{
 		peers:          peers,
 		persister:      persister,
@@ -309,7 +318,6 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	for i := range rf.nextIndex {
 		rf.nextIndex[i] = 1
 	}
-	//rf.log = append(rf.log, Entry{Command: "null", Term: 0})
 	// initialize from state persisted before a crash
 	rf.readPersist(persister.ReadRaftState())
 
