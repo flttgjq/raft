@@ -37,11 +37,11 @@ func (rf *Raft) broadcastHeartBeat() {
 		}
 		// prevLogIndex >= 0 表示存在合法的Prev log, 更新Term
 		if args.PrevLogIndex >= 0 {
-			args.PrevLogTerm = rf.log[args.PrevLogIndex].Term
+			args.PrevLogTerm = rf.log.Entries[args.PrevLogIndex].Term
 		}
 		// 是否包含未加入的log 即日志小于leader的日志
-		if rf.nextIndex[peer] < len(rf.log) {
-			args.Entries = rf.log[rf.nextIndex[peer]:]
+		if rf.nextIndex[peer] < len(rf.log.Entries) {
+			args.Entries = rf.log.Entries[rf.nextIndex[peer]:]
 		}
 		go func(peer int) {
 			reply := AppendEntriesReply{}
@@ -72,14 +72,14 @@ func (rf *Raft) handleReply(server int, args *AppendEntriesArgs, reply *AppendEn
 	}
 
 	if reply.Success {
-		rf.nextIndex[server] = len(rf.log) // 更新至leader的最新log+1
+		rf.nextIndex[server] = len(rf.log.Entries) // 更新至leader的最新log+1
 		//rf.matchIndex[server] = len(rf.log) - 1
 		rf.matchIndex[server] = args.PrevLogIndex + len(args.Entries)
 		numCommit := 0
 		for i := 0; i < len(rf.peers); i++ {
 			if rf.matchIndex[i] >= rf.matchIndex[server] {
 				numCommit++
-				if numCommit > (len(rf.peers)/2) && rf.log[rf.matchIndex[server]].Term == rf.currentTerm && rf.commitIndex < rf.matchIndex[server] {
+				if numCommit > (len(rf.peers)/2) && rf.log.Entries[rf.matchIndex[server]].Term == rf.currentTerm && rf.commitIndex < rf.matchIndex[server] {
 					// 原则：只提交自己任期内的log
 					//      一条log只提交1次
 					//      只有多数同一在提交
@@ -93,7 +93,7 @@ func (rf *Raft) handleReply(server int, args *AppendEntriesArgs, reply *AppendEn
 			// term conflict
 			conflictIndex := -1
 			for i := args.PrevLogIndex; i > 0; i-- {
-				if rf.log[i].Term == reply.ConflictTerm {
+				if rf.log.Entries[i].Term == reply.ConflictTerm {
 					conflictIndex = i
 					break
 				}
@@ -117,7 +117,7 @@ func (rf *Raft) commitLog() {
 		rf.ApplyMsgChan <- ApplyMsg{
 			CommandValid: true,
 			CommandIndex: i,
-			Command:      rf.log[i].Command,
+			Command:      rf.log.Entries[i].Command,
 		}
 	}
 	rf.lastApplied = rf.commitIndex
@@ -143,17 +143,17 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 	rf.electionTimer.Reset(generateRandTime())
 	rf.persist()
 
-	if len(rf.log)-1 < args.PrevLogIndex {
+	if len(rf.log.Entries)-1 < args.PrevLogIndex {
 		// 如果log不包含prevlogindex
 		reply.Term, reply.Success = rf.currentTerm, false
-		reply.ConflictIndex, reply.ConflictTerm = len(rf.log), -1
+		reply.ConflictIndex, reply.ConflictTerm = len(rf.log.Entries), -1
 		return
-	} else if args.PrevLogTerm != rf.log[args.PrevLogIndex].Term {
+	} else if args.PrevLogTerm != rf.log.Entries[args.PrevLogIndex].Term {
 		// 包含prevlogindex但term不一致, 不匹配S
 		reply.Term, reply.Success = rf.currentTerm, false
-		reply.ConflictTerm = rf.log[args.PrevLogIndex].Term
+		reply.ConflictTerm = rf.log.Entries[args.PrevLogIndex].Term
 		for i := 0; i <= args.PrevLogIndex; i++ {
-			if rf.log[i].Term == reply.ConflictTerm {
+			if rf.log.Entries[i].Term == reply.ConflictTerm {
 				reply.ConflictIndex = i
 				break
 			}
@@ -162,20 +162,20 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 	}
 
 	// 此时已经包含了prevlogindex, 检查是否是log的最后一个元素
-	if args.PrevLogIndex != len(rf.log)-1 {
-		rf.log = rf.log[:args.PrevLogIndex+1] // 删除之后的所有
+	if args.PrevLogIndex != len(rf.log.Entries)-1 {
+		rf.log.Entries = rf.log.Entries[:args.PrevLogIndex+1] // 删除之后的所有
 		rf.persist()
 	}
 
 	if args.Entries != nil {
 		//DPrintf("append %v %v", args.Entries, rf.log[args.PrevLogIndex])
-		rf.log = append(rf.log, args.Entries...)
+		rf.log.Entries = append(rf.log.Entries, args.Entries...)
 		rf.persist()
 		//DPrintf("node {%v}'s log %v", rf.me, rf.log)
 	}
 
 	if rf.commitIndex < args.LeaderCommit {
-		rf.commitIndex = min(args.LeaderCommit, len(rf.log)-1)
+		rf.commitIndex = min(args.LeaderCommit, len(rf.log.Entries)-1)
 		go rf.commitLog()
 	}
 	reply.Term, reply.Success = args.Term, true

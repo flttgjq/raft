@@ -46,7 +46,7 @@ func (rf *Raft) startElection() {
 									continue
 								}
 								//rf.nextIndex[i] = rf.commitIndex + 1
-								rf.nextIndex[i] = len(rf.log)
+								rf.nextIndex[i] = len(rf.log.Entries)
 								rf.matchIndex[i] = 0
 							}
 							rf.meState = LEADER
@@ -105,13 +105,13 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 
 // isLogUpToDate check log
 func (rf *Raft) isLogUpToDate(lastLogTerm int, lastLogIndex int) bool {
-	if lastLogTerm > rf.log[len(rf.log)-1].Term {
+	if lastLogTerm > rf.log.Entries[len(rf.log.Entries)-1].Term {
 		return true
 	}
-	if lastLogTerm < rf.log[len(rf.log)-1].Term {
+	if lastLogTerm < rf.log.Entries[len(rf.log.Entries)-1].Term {
 		return false
 	}
-	if lastLogIndex < len(rf.log)-1 {
+	if lastLogIndex < len(rf.log.Entries)-1 {
 		return false
 	}
 	return true
@@ -156,7 +156,7 @@ func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, reply *Reques
 func (rf *Raft) genVoteArgs() *RequestVoteArgs {
 	return &RequestVoteArgs{Term: rf.currentTerm,
 		CandidateId:  rf.me,
-		LastLogTerm:  rf.log[len(rf.log)-1].Term,
-		LastLogIndex: len(rf.log) - 1,
+		LastLogTerm:  rf.log.Entries[len(rf.log.Entries)-1].Term,
+		LastLogIndex: len(rf.log.Entries) - 1,
 	}
 }

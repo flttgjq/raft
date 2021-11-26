@@ -67,9 +67,13 @@ type ApplyMsg struct {
 
 // Entry log entry
 type Entry struct {
-	//Command string
 	Term    int
 	Command interface{}
+}
+
+type Log struct {
+	Entries []Entry
+	Base    int
 }
 
 // Raft
@@ -87,7 +91,8 @@ type Raft struct {
 	// persistent state on all servers
 	currentTerm int
 	votedFor    int
-	log         []Entry
+	//log         []Entry
+	log Log
 
 	// volatile state on all servers
 	meState        int // 当前状态
@@ -161,7 +166,7 @@ func (rf *Raft) readPersist(data []byte) {
 	read := bytes.NewBuffer(data)
 	decoder := labgob.NewDecoder(read)
 	var votedFor int
-	var log []Entry
+	var log Log
 	var currentTerm int
 	if decoder.Decode(&log) != nil || decoder.Decode(&votedFor) != nil || decoder.Decode(&currentTerm) != nil {
 		return
@@ -227,8 +232,8 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 		return index, rf.currentTerm, isLeader
 	}
 	DPrintf("{node %v} service start: command:%v", rf.me, command)
-	index = len(rf.log)
-	rf.log = append(rf.log, Entry{Command: command, Term: term})
+	index = len(rf.log.Entries)
+	rf.log.Entries = append(rf.log.Entries, Entry{Command: command, Term: term})
 	rf.persist()
 	//DPrintf("cuurent leader %v's log %v", rf.me, rf.log)
 	rf.matchIndex[rf.me] = index
@@ -310,7 +315,7 @@ func Make(peers []*labrpc.ClientEnd, me int,
 		heartbeatTimer: time.NewTimer(HEART_BEAT_TIMEOUT),
 		commitIndex:    0,
 		lastApplied:    0,
-		log:            make([]Entry, 1),
+		log:            Log{make([]Entry, 1), 0},
 		nextIndex:      make([]int, len(peers)),
 		matchIndex:     make([]int, len(peers)),
 		ApplyMsgChan:   applyCh,

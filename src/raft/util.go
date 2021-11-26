@@ -15,10 +15,10 @@ func DPrintf(format string, a ...interface{}) (n int, err error) {
 }
 
 func (rf *Raft) ifPrevLogEntryExist(prevLogTerm int, prevLogIndex int) bool {
-	if len(rf.log) < prevLogIndex {
+	if len(rf.log.Entries) < prevLogIndex {
 		return false
 	}
-	if rf.log[prevLogIndex].Term == prevLogTerm {
+	if rf.log.Entries[prevLogIndex].Term == prevLogTerm {
 		return true
 	} else {
 		return false
