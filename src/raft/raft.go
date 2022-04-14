@@ -18,15 +18,16 @@ package raft
 //
 
 import (
-	"6.824/labgob"
 	"bytes"
 	"math/rand"
+
+	"6.824/labgob"
+
 	//	"bytes"
 	"sync"
 	"sync/atomic"
 	"time"
 
-	//"6.824/labgob"
 	"6.824/labrpc"
 )
 
@@ -67,9 +68,9 @@ type ApplyMsg struct {
 
 // Entry log entry
 type Entry struct {
-	//Command string
-	Term    int
-	Command interface{}
+	Term          int
+	Command       interface{}
+	SnapshotIndex int
 }
 
 // Raft
@@ -103,6 +104,7 @@ type Raft struct {
 	ApplyMsgChan chan ApplyMsg
 	// Look at the paper's Figure 2 for a description of what
 	// state a Raft server must maintain.
+	applyCond *sync.Cond
 }
 
 func (rf *Raft) changeState(state int) {
@@ -112,7 +114,6 @@ func (rf *Raft) changeState(state int) {
 // GetState return currentTerm and whether this server
 // believes it is the leader.
 func (rf *Raft) GetState() (int, bool) {
-
 	var term int
 	var isleader bool
 	rf.mu.Lock()
@@ -172,6 +173,24 @@ func (rf *Raft) readPersist(data []byte) {
 	}
 }
 
+func (rf *Raft) persistStateAndSnapshot(snapshot []byte) {
+	buffer := new(bytes.Buffer)
+	enc := labgob.NewEncoder(buffer)
+	err := enc.Encode(rf.log)
+	if err != nil {
+		return
+	}
+	err = enc.Encode(rf.votedFor)
+	if err != nil {
+		return
+	}
+	err = enc.Encode(rf.currentTerm)
+	if err != nil {
+		return
+	}
+	rf.persister.SaveStateAndSnapshot(buffer.Bytes(), snapshot)
+}
+
 // CondInstallSnapshot
 // A service wants to switch to snapshot.  Only do so if Raft hasn't
 // have more recent info since it communicate the snapshot on applyCh.
@@ -179,7 +198,21 @@ func (rf *Raft) readPersist(data []byte) {
 func (rf *Raft) CondInstallSnapshot(lastIncludedTerm int, lastIncludedIndex int, snapshot []byte) bool {
 
 	// Your code here (2D).
-
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+	if lastIncludedIndex <= rf.commitIndex {
+		return false
+	}
+	if len(rf.log)+rf.log[0].SnapshotIndex > lastIncludedIndex {
+		rf.log = append([]Entry(nil), rf.log[lastIncludedIndex-rf.log[0].SnapshotIndex:]...)
+	} else {
+		rf.log = make([]Entry, 1)
+		rf.log[0].SnapshotIndex = lastIncludedIndex
+		rf.log[0].Term = lastIncludedTerm
+	}
+	rf.lastApplied = lastIncludedIndex
+	rf.commitIndex = lastIncludedIndex
+	rf.persistStateAndSnapshot(snapshot)
 	return true
 }
 
@@ -189,7 +222,14 @@ func (rf *Raft) CondInstallSnapshot(lastIncludedTerm int, lastIncludedIndex int,
 // that index. Raft should now trim its log as much as possible.
 func (rf *Raft) Snapshot(index int, snapshot []byte) {
 	// Your code here (2D).
-
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+	DPrintf("start create snapshot")
+	if index <= rf.log[0].SnapshotIndex {
+		return
+	}
+	rf.log = rf.log[index-rf.log[0].SnapshotIndex:]
+	rf.persistStateAndSnapshot(snapshot)
 }
 
 // gen rand time from 150-300
@@ -222,17 +262,17 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 	isLeader := true
 	// Your code here (2B).
 	isLeader = rf.meState == LEADER
-	//DPrintf("node %v: believes he is leader: %v", rf.me, isLeader)
 	if !isLeader {
 		return index, rf.currentTerm, isLeader
 	}
-	DPrintf("{node %v} service start: command:%v", rf.me, command)
-	index = len(rf.log)
-	rf.log = append(rf.log, Entry{Command: command, Term: term})
+	DPrintf("{Node %v} receives a new command[%v] to replicate in term %v", rf.me, command, rf.currentTerm)
+	index = len(rf.log) + rf.log[0].SnapshotIndex
+	rf.log = append(rf.log, Entry{Command: command, Term: term, SnapshotIndex: index})
 	rf.persist()
-	//DPrintf("cuurent leader %v's log %v", rf.me, rf.log)
 	rf.matchIndex[rf.me] = index
 	rf.nextIndex[rf.me] = index
+	rf.broadcastHeartBeat()
+	rf.heartbeatTimer.Reset(HEART_BEAT_TIMEOUT)
 	return index, term, isLeader
 }
 
@@ -285,6 +325,35 @@ func (rf *Raft) ticker() {
 	}
 }
 
+// applier
+// use condvar to sync applymsg
+func (rf *Raft) applier() {
+	for rf.killed() == false {
+		rf.mu.Lock()
+		if rf.lastApplied >= rf.commitIndex {
+			rf.applyCond.Wait()
+		}
+		base, lastApplied, commitIndex := rf.log[0].SnapshotIndex, rf.lastApplied, rf.commitIndex
+		entries := make([]Entry, commitIndex-lastApplied)
+		copy(entries, rf.log[lastApplied+1-base:commitIndex+1-base])
+		rf.mu.Unlock()
+		for _, entry := range entries {
+			rf.ApplyMsgChan <- ApplyMsg{
+				CommandValid: true,
+				Command:      entry.Command,
+				CommandIndex: entry.SnapshotIndex,
+			}
+		}
+		rf.mu.Lock()
+		DPrintf("{Node %v} applies entries %v-%v in term %v", rf.me, rf.lastApplied, commitIndex, rf.currentTerm)
+		// use Max(rf.lastApplied, commitIndex) rather than commitIndex directly to avoid concurrently InstallSnapshot rpc causing lastApplied to rollback
+		if rf.lastApplied < commitIndex {
+			rf.lastApplied = commitIndex
+		}
+		rf.mu.Unlock()
+	}
+}
+
 // Make
 // the service or tester wants to create a Raft server. the ports
 // of all the Raft servers (including this one) are in peers[]. this
@@ -318,11 +387,14 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	for i := range rf.nextIndex {
 		rf.nextIndex[i] = 1
 	}
+	rf.applyCond = sync.NewCond(&rf.mu)
 	// initialize from state persisted before a crash
 	rf.readPersist(persister.ReadRaftState())
-
+	rf.lastApplied = rf.log[0].SnapshotIndex
+	rf.commitIndex = rf.log[0].SnapshotIndex
 	// start ticker goroutine to start elections
 	go rf.ticker()
+	go rf.applier()
 
 	return rf
 }

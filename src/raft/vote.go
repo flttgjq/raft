@@ -36,7 +36,7 @@ func (rf *Raft) startElection() {
 			if rf.sendRequestVote(peer, request, response) {
 				rf.mu.Lock()
 				defer rf.mu.Unlock()
-				if rf.currentTerm == request.Term && rf.meState == CANDIDATE {
+				if rf.currentTerm == response.Term && rf.meState == CANDIDATE {
 					if response.VoteGranted {
 						grantedVotes += 1
 						if grantedVotes > len(rf.peers)/2 {
@@ -45,8 +45,8 @@ func (rf *Raft) startElection() {
 								if i == rf.me {
 									continue
 								}
-								//rf.nextIndex[i] = rf.commitIndex + 1
-								rf.nextIndex[i] = len(rf.log)
+								rf.nextIndex[i] = len(rf.log) + rf.log[0].SnapshotIndex
+								// rf.matchIndex[i] = rf.log[0].SnapshotIndex
 								rf.matchIndex[i] = 0
 							}
 							rf.meState = LEADER
@@ -56,7 +56,6 @@ func (rf *Raft) startElection() {
 							rf.heartbeatTimer.Reset(HEART_BEAT_TIMEOUT)
 						}
 					} else if response.Term > rf.currentTerm {
-						//DPrintf("{Node %v} finds a new leader {Node %v} with Term %v and steps down in Term %v", rf.me, peer, response.Term, rf.currentTerm)
 						rf.meState = FOLLOWER
 						rf.currentTerm, rf.votedFor = response.Term, -1
 						rf.persist()
@@ -77,20 +76,17 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 	defer rf.mu.Unlock()
 	if args.Term < rf.currentTerm || (args.Term == rf.currentTerm && rf.votedFor != -1 && rf.votedFor != args.CandidateId) {
 		// 已经选出新的leader，request term过期， 返回新的term
-		//DPrintf("args.Term=%v  current Term=%v, current rf=%v", args, rf.votedFor, rf.me)
 		reply.Term = rf.currentTerm
 		reply.VoteGranted = false
 		return
 	}
 	if args.Term > rf.currentTerm {
-		DPrintf("")
+		DPrintf("server %v outdated in requestvote", rf.me)
 		rf.meState = FOLLOWER
 		rf.currentTerm, rf.votedFor = args.Term, -1
 		rf.persist()
-		//return
 	}
 	if !rf.isLogUpToDate(args.LastLogTerm, args.LastLogIndex) {
-		DPrintf("node %v refuse to vote node %v because is not up to date", rf.me, args.CandidateId)
 		reply.Term, reply.VoteGranted = rf.currentTerm, false
 		return
 	}
@@ -99,7 +95,6 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 	rf.votedFor = args.CandidateId
 	rf.persist()
 	reply.VoteGranted = true
-	//DPrintf("agree")
 	reply.Term = args.Term
 }
 
@@ -111,7 +106,7 @@ func (rf *Raft) isLogUpToDate(lastLogTerm int, lastLogIndex int) bool {
 	if lastLogTerm < rf.log[len(rf.log)-1].Term {
 		return false
 	}
-	if lastLogIndex < len(rf.log)-1 {
+	if lastLogIndex < rf.log[len(rf.log)-1].SnapshotIndex {
 		return false
 	}
 	return true
@@ -157,6 +152,6 @@ func (rf *Raft) genVoteArgs() *RequestVoteArgs {
 	return &RequestVoteArgs{Term: rf.currentTerm,
 		CandidateId:  rf.me,
 		LastLogTerm:  rf.log[len(rf.log)-1].Term,
-		LastLogIndex: len(rf.log) - 1,
+		LastLogIndex: rf.log[len(rf.log)-1].SnapshotIndex,
 	}
 }
