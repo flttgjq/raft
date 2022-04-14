@@ -3,9 +3,9 @@ package raft
 import "log"
 
 // Debug Debugging
-// const Debug = false
+const Debug = false
 
-const Debug = true
+// const Debug = true
 
 func DPrintf(format string, a ...interface{}) (n int, err error) {
 	if Debug {
@@ -30,5 +30,13 @@ func min(x1 int, x2 int) int {
 		return x2
 	} else {
 		return x1
+	}
+}
+
+func max(x1 int, x2 int) int {
+	if x1 > x2 {
+		return x1
+	} else {
+		return x2
 	}
 }

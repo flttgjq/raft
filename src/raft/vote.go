@@ -52,8 +52,10 @@ func (rf *Raft) startElection() {
 							rf.meState = LEADER
 							rf.votedFor = -1
 							rf.persist()
-							rf.broadcastHeartBeat()
+							// rf.broadcastHeartBeat()
+							rf.broadcastHeartBeat(true)
 							rf.heartbeatTimer.Reset(HEART_BEAT_TIMEOUT)
+							return
 						}
 					} else if response.Term > rf.currentTerm {
 						rf.meState = FOLLOWER

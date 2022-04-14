@@ -32,7 +32,7 @@ type InstallSnapshotReply struct {
 	Term int
 }
 
-func (rf *Raft) broadcastHeartBeat() {
+func (rf *Raft) broadcastHeartBeat(isHeartBeat bool) {
 	for peer := range rf.peers {
 		if rf.meState != LEADER {
 			return
@@ -41,49 +41,17 @@ func (rf *Raft) broadcastHeartBeat() {
 			rf.electionTimer.Reset(generateRandTime())
 			continue
 		}
-		args := AppendEntriesArgs{
-			Term:         rf.currentTerm,
-			LeaderId:     rf.me,
-			PrevLogIndex: rf.nextIndex[peer] - 1,
-			LeaderCommit: rf.commitIndex,
+		if isHeartBeat {
+			go rf.replicate(peer)
+		} else {
+			rf.replicatorCond[peer].Signal()
 		}
-		// prevLogIndex >= 0 表示存在合法的Prev log, 更新Term
-		if args.PrevLogIndex >= 0 {
-			if args.PrevLogIndex < rf.log[0].SnapshotIndex {
-				DPrintf("need install snapshot, prevlogindex=%v, snapshotindex=%v", args.PrevLogIndex, rf.log[0].SnapshotIndex)
-				args := &InstallSnapshotArgs{
-					Term:          rf.currentTerm,
-					LeaderId:      rf.me,
-					SnapshotIndex: rf.log[0].SnapshotIndex,
-					SnapshotTerm:  rf.log[0].Term,
-					Snapshot:      rf.persister.snapshot,
-				}
-				go rf.sendSnapshot(peer, args)
-				continue
-			} else {
-				args.PrevLogTerm = rf.log[args.PrevLogIndex-rf.log[0].SnapshotIndex].Term
-			}
-
-		}
-		// 是否包含未加入的log 即日志小于leader的日志
-		if rf.nextIndex[peer] < len(rf.log)+rf.log[0].SnapshotIndex && rf.nextIndex[peer] > rf.log[0].SnapshotIndex {
-			args.Entries = append([]Entry(nil), rf.log[rf.nextIndex[peer]-rf.log[0].SnapshotIndex:]...)
-		}
-		go func(peer int) {
-			reply := AppendEntriesReply{}
-			DPrintf("server send appendEntries to server%v have %v Entries, args=%v", peer, len(args.Entries), args)
-			ok := rf.sendAppendEntries(peer, &args, &reply)
-			if ok && !rf.killed() {
-				rf.handleReply(peer, &args, &reply)
-			}
-		}(peer)
 	}
 }
 
 func (rf *Raft) handleReply(server int, args *AppendEntriesArgs, reply *AppendEntriesReply) {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
-	defer rf.persist()
 
 	if rf.meState != LEADER {
 		return
@@ -93,18 +61,15 @@ func (rf *Raft) handleReply(server int, args *AppendEntriesArgs, reply *AppendEn
 		rf.meState = FOLLOWER
 		rf.currentTerm = reply.Term
 		rf.votedFor = -1
+		rf.persist()
 		rf.electionTimer.Reset(generateRandTime())
 		return
 	}
 
 	if reply.Success {
 		// only update when its not a outdated op
-		if rf.nextIndex[server] < len(args.Entries)+args.PrevLogIndex+1 {
-			rf.nextIndex[server] = len(args.Entries) + args.PrevLogIndex + 1 // 更新至leader的最新log+1
-		}
-		if rf.matchIndex[server] < args.PrevLogIndex+len(args.Entries) {
-			rf.matchIndex[server] = args.PrevLogIndex + len(args.Entries)
-		}
+		rf.nextIndex[server] = max(len(args.Entries)+args.PrevLogIndex+1, rf.nextIndex[server])
+		rf.matchIndex[server] = max(args.PrevLogIndex+len(args.Entries), rf.matchIndex[server])
 
 		// this log has already been commited, return directly
 		if rf.matchIndex[server] <= rf.log[0].SnapshotIndex || rf.matchIndex[server] <= rf.commitIndex {
@@ -155,7 +120,6 @@ func (rf *Raft) sendAppendEntries(server int, args *AppendEntriesArgs, reply *Ap
 func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply) {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
-	defer rf.persist()
 
 	if args.Term < rf.currentTerm {
 		reply.Term, reply.Success = rf.currentTerm, false
@@ -165,6 +129,7 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 	rf.currentTerm = args.Term
 	rf.meState = FOLLOWER
 	rf.votedFor = -1
+	rf.persist()
 	base := rf.log[0].SnapshotIndex
 	rf.electionTimer.Reset(generateRandTime())
 
@@ -197,10 +162,12 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 	// 此时已经包含了prevlogindex, 检查是否是log的最后一个元素
 	if args.PrevLogIndex != len(rf.log)-1+base {
 		rf.log = rf.log[:args.PrevLogIndex+1-base] // 删除之后的所有
+		rf.persist()
 	}
 
 	if args.Entries != nil {
 		rf.log = append(rf.log, args.Entries...)
+		rf.persist()
 	}
 
 	if rf.commitIndex < args.LeaderCommit {

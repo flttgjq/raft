@@ -104,7 +104,8 @@ type Raft struct {
 	ApplyMsgChan chan ApplyMsg
 	// Look at the paper's Figure 2 for a description of what
 	// state a Raft server must maintain.
-	applyCond *sync.Cond
+	applyCond      *sync.Cond
+	replicatorCond []*sync.Cond
 }
 
 func (rf *Raft) changeState(state int) {
@@ -271,7 +272,8 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 	rf.persist()
 	rf.matchIndex[rf.me] = index
 	rf.nextIndex[rf.me] = index
-	rf.broadcastHeartBeat()
+	// rf.broadcastHeartBeat()
+	rf.broadcastHeartBeat(false)
 	rf.heartbeatTimer.Reset(HEART_BEAT_TIMEOUT)
 	return index, term, isLeader
 }
@@ -317,7 +319,8 @@ func (rf *Raft) ticker() {
 		case <-rf.heartbeatTimer.C:
 			rf.mu.Lock()
 			if rf.meState == LEADER {
-				rf.broadcastHeartBeat()
+				// rf.broadcastHeartBeat()
+				rf.broadcastHeartBeat(true)
 				rf.heartbeatTimer.Reset(HEART_BEAT_TIMEOUT)
 			}
 			rf.mu.Unlock()
@@ -347,10 +350,65 @@ func (rf *Raft) applier() {
 		rf.mu.Lock()
 		DPrintf("{Node %v} applies entries %v-%v in term %v", rf.me, rf.lastApplied, commitIndex, rf.currentTerm)
 		// use Max(rf.lastApplied, commitIndex) rather than commitIndex directly to avoid concurrently InstallSnapshot rpc causing lastApplied to rollback
-		if rf.lastApplied < commitIndex {
-			rf.lastApplied = commitIndex
+		rf.lastApplied = max(rf.lastApplied, commitIndex)
+		rf.mu.Unlock()
+	}
+}
+
+func (rf *Raft) replicate(peer int) {
+	rf.mu.Lock()
+	if rf.meState != LEADER {
+		rf.mu.Unlock()
+		return
+	}
+	PrevLogIndex := rf.nextIndex[peer] - 1
+	if PrevLogIndex < rf.log[0].SnapshotIndex {
+		requests := InstallSnapshotArgs{
+			Term:          rf.currentTerm,
+			LeaderId:      rf.me,
+			SnapshotIndex: rf.log[0].SnapshotIndex,
+			SnapshotTerm:  rf.log[0].Term,
+			Snapshot:      rf.persister.snapshot,
 		}
 		rf.mu.Unlock()
+		rf.sendSnapshot(peer, &requests)
+	} else {
+		request := AppendEntriesArgs{
+			Term:         rf.currentTerm,
+			LeaderId:     rf.me,
+			PrevLogIndex: PrevLogIndex,
+			LeaderCommit: rf.commitIndex,
+		}
+		if PrevLogIndex > 0 {
+			request.PrevLogTerm = rf.log[request.PrevLogIndex-rf.log[0].SnapshotIndex].Term
+		}
+		if rf.nextIndex[peer] < len(rf.log)+rf.log[0].SnapshotIndex && rf.nextIndex[peer] > rf.log[0].SnapshotIndex {
+			request.Entries = append([]Entry(nil), rf.log[rf.nextIndex[peer]-rf.log[0].SnapshotIndex:]...)
+			DPrintf("send log%v-%v to server%v", request.Entries[0].SnapshotIndex, request.Entries[len(request.Entries)-1].SnapshotIndex, rf.me)
+		}
+		rf.mu.Unlock()
+		response := AppendEntriesReply{}
+		if rf.sendAppendEntries(peer, &request, &response) {
+			rf.handleReply(peer, &request, &response)
+		}
+	}
+}
+
+func (rf *Raft) need_replicate(peer int) bool {
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+	return rf.meState == LEADER && rf.matchIndex[peer] < rf.log[len(rf.log)-1].SnapshotIndex
+}
+
+func (rf *Raft) replicator(peer int) {
+	rf.replicatorCond[peer].L.Lock()
+	defer rf.replicatorCond[peer].L.Unlock()
+	for rf.killed() == false {
+		// only wake up when need
+		for !rf.need_replicate(peer) {
+			rf.replicatorCond[peer].Wait()
+		}
+		rf.replicate(peer)
 	}
 }
 
@@ -383,9 +441,17 @@ func Make(peers []*labrpc.ClientEnd, me int,
 		nextIndex:      make([]int, len(peers)),
 		matchIndex:     make([]int, len(peers)),
 		ApplyMsgChan:   applyCh,
+		replicatorCond: make([]*sync.Cond, len(peers)),
 	}
 	for i := range rf.nextIndex {
 		rf.nextIndex[i] = 1
+	}
+	for i := 0; i < len(rf.peers); i++ {
+		if i == rf.me {
+			continue
+		}
+		rf.replicatorCond[i] = sync.NewCond(&sync.Mutex{})
+		go rf.replicator(i)
 	}
 	rf.applyCond = sync.NewCond(&rf.mu)
 	// initialize from state persisted before a crash
