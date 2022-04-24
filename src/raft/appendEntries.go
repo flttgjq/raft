@@ -38,7 +38,7 @@ func (rf *Raft) broadcastHeartBeat(isHeartBeat bool) {
 			return
 		}
 		if peer == rf.me {
-			rf.electionTimer.Reset(generateRandTime())
+			rf.resetElectionTimer()
 			continue
 		}
 		if isHeartBeat {
@@ -57,41 +57,59 @@ func (rf *Raft) handleReply(server int, args *AppendEntriesArgs, reply *AppendEn
 		return
 	}
 
+	if args.Term != rf.currentTerm {
+		DPrintf("outdated reply")
+		return
+	}
+
 	if reply.Term > rf.currentTerm {
+		DPrintf("leader failed")
 		rf.meState = FOLLOWER
 		rf.currentTerm = reply.Term
-		rf.votedFor = -1
 		rf.persist()
-		rf.electionTimer.Reset(generateRandTime())
 		return
 	}
 
 	if reply.Success {
-		// only update when its not a outdated op
-		rf.nextIndex[server] = max(len(args.Entries)+args.PrevLogIndex+1, rf.nextIndex[server])
-		rf.matchIndex[server] = max(args.PrevLogIndex+len(args.Entries), rf.matchIndex[server])
-
-		// this log has already been commited, return directly
-		if rf.matchIndex[server] <= rf.log[0].SnapshotIndex || rf.matchIndex[server] <= rf.commitIndex {
-			DPrintf("this log has already been commited")
+		if len(args.Entries) == 0 {
 			return
 		}
+		// only update when its not a outdated op
+		rf.nextIndex[server] = args.PrevLogIndex + len(args.Entries) + 1
+		rf.matchIndex[server] = args.PrevLogIndex + len(args.Entries)
 
-		DPrintf("current commitindex=%v, matchIndex[server%v]=%v", rf.commitIndex, server, rf.matchIndex[server])
-		numCommit := 0
-		for i := 0; i < len(rf.peers); i++ {
-			if rf.matchIndex[i] >= rf.matchIndex[server] {
-				numCommit++
-				if numCommit > (len(rf.peers)/2) && rf.log[rf.matchIndex[server]-rf.log[0].SnapshotIndex].Term == rf.currentTerm && rf.commitIndex < rf.matchIndex[server] {
-					// 原则：只提交自己任期内的log
-					//      一条log只提交1次
-					//      只有多数同一在提交
-					rf.commitIndex = rf.matchIndex[server]
-					rf.applyCond.Signal()
-				}
+		// this log has already been commited, return directly
+
+		// preCommitIndex := rf.commitIndex
+		// for i := rf.commitIndex; i <= rf.matchIndex[server]; i++ {
+		// 	count := 0
+		// 	for p := range rf.peers {
+		// 		if rf.matchIndex[p] >= i {
+		// 			count += 1
+		// 		}
+		// 	}
+		// 	if count > len(rf.peers)/2 && rf.log[i-rf.log[0].SnapshotIndex].Term == rf.currentTerm {
+		// 		preCommitIndex = i
+		// 	}
+		// }
+
+		majorityMatchIndex := findKthLargest(rf.matchIndex, len(rf.peers)/2+1)
+		if majorityMatchIndex > rf.commitIndex && rf.log[majorityMatchIndex-rf.log[0].SnapshotIndex].Term == rf.currentTerm {
+			rf.commitIndex = majorityMatchIndex
+			DPrintf("leader matchIndex: %v\n", rf.matchIndex)
+			if rf.commitIndex > rf.lastApplied {
+				rf.applyCond.Signal()
 			}
 		}
+
+		// rf.commitIndex = preCommitIndex
+		// if rf.commitIndex > rf.lastApplied {
+		// 	rf.applyCond.Signal()
+		// }
 	} else {
+		if reply.ConflictIndex == -1 {
+			return
+		}
 		if reply.ConflictTerm != -1 {
 			// term conflict
 			conflictIndex := -1
@@ -120,26 +138,34 @@ func (rf *Raft) sendAppendEntries(server int, args *AppendEntriesArgs, reply *Ap
 func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply) {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
+	defer rf.persist()
+
+	DPrintf("Node{%v} receive heartbeat in term %v from {Node%v}", rf.me, rf.currentTerm, args.LeaderId)
+	reply.ConflictIndex, reply.ConflictTerm = -1, -1
 
 	if args.Term < rf.currentTerm {
+		DPrintf("{Node%v} receives a outdated AppendEntriesRPC", rf.me)
 		reply.Term, reply.Success = rf.currentTerm, false
 		return
 	}
 
-	rf.currentTerm = args.Term
-	rf.meState = FOLLOWER
-	rf.votedFor = -1
-	rf.persist()
-	base := rf.log[0].SnapshotIndex
-	rf.electionTimer.Reset(generateRandTime())
+	if args.Term > rf.currentTerm {
+		rf.currentTerm = args.Term
+	}
 
-	// 信息都在快照中，只是一个普通的心跳包，直接回复
+	base := rf.log[0].SnapshotIndex
+	rf.meState = FOLLOWER
+
+	// 这个请求过期了，期间已经安装了快照，只是一个普通的心跳包，直接回复
 	if args.PrevLogIndex < base {
 		reply.Term, reply.Success = rf.currentTerm, false
-		reply.ConflictIndex, reply.ConflictTerm = base+1, -1
+		// reply.ConflictIndex, reply.ConflictTerm = base+1, -1
 		DPrintf("info in snapshot, conflictindex=%v", base+1)
 		return
 	}
+
+	// rf.electionTimer.Reset(generateRandTime())
+	rf.resetElectionTimer()
 
 	if len(rf.log)-1+base < args.PrevLogIndex {
 		// 如果log不包含prevlogindex
@@ -153,28 +179,29 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 		for i := 0; i <= args.PrevLogIndex-base; i++ {
 			if rf.log[i].Term == reply.ConflictTerm {
 				reply.ConflictIndex = i + base
+				// rf.log = append([]Entry(nil), rf.log[:i]...) // confilct trim log
 				break
 			}
 		}
 		return
 	}
 
-	// 此时已经包含了prevlogindex, 检查是否是log的最后一个元素
-	if args.PrevLogIndex != len(rf.log)-1+base {
-		rf.log = rf.log[:args.PrevLogIndex+1-base] // 删除之后的所有
-		rf.persist()
-	}
-
-	if args.Entries != nil {
-		rf.log = append(rf.log, args.Entries...)
-		rf.persist()
+	for index, entry := range args.Entries {
+		if entry.SnapshotIndex-base >= len(rf.log) || rf.log[entry.SnapshotIndex-base].Term != entry.Term {
+			DPrintf("{Node%v} start append entries, len of past log is %v", rf.me, rf.log[len(rf.log)-1].SnapshotIndex)
+			rf.log = append(rf.log[:entry.SnapshotIndex-base], args.Entries[index:]...)
+			DPrintf("{Node%v} end append entries, len of now is %v", rf.me, rf.log[len(rf.log)-1].SnapshotIndex)
+			break
+		}
 	}
 
 	if rf.commitIndex < args.LeaderCommit {
-		rf.commitIndex = min(args.LeaderCommit, len(rf.log)-1+base)
-		rf.applyCond.Signal()
+		rf.commitIndex = min(args.LeaderCommit, rf.log[len(rf.log)-1].SnapshotIndex)
+		if rf.commitIndex > rf.lastApplied {
+			rf.applyCond.Signal()
+		}
 	}
-	reply.Term, reply.Success = args.Term, true
+	reply.Term, reply.Success = rf.currentTerm, true
 }
 
 func (rf *Raft) sendSnapshot(peer int, args *InstallSnapshotArgs) {
@@ -183,13 +210,22 @@ func (rf *Raft) sendSnapshot(peer int, args *InstallSnapshotArgs) {
 	if ok && !rf.killed() {
 		rf.mu.Lock()
 		defer rf.mu.Unlock()
-		if reply.Term <= rf.currentTerm && reply.Term != 0 {
-			rf.nextIndex[peer] = args.SnapshotIndex + 1
-			rf.matchIndex[peer] = args.SnapshotIndex
-		} else {
-			rf.currentTerm = reply.Term
+		if args.Term != rf.currentTerm || rf.meState != LEADER {
+			DPrintf("{Node %v} got a outdate snapshotRPC reply from {Node %v}, discard", rf.me, peer)
+			return
+		}
+		if reply.Term > rf.currentTerm {
 			rf.meState = FOLLOWER
+			// rf.votedFor, rf.currentTerm = -1, reply.Term
+			rf.currentTerm = reply.Term
 			rf.persist()
+			// rf.electionTimer.Reset(generateRandTime())
+			// rf.resetElectionTimer()
+			return
+		}
+		if reply.Term == rf.currentTerm && reply.Term != 0 {
+			rf.nextIndex[peer] = args.SnapshotIndex + 1
+			// rf.matchIndex[peer] = args.SnapshotIndex
 		}
 	}
 	return
@@ -209,28 +245,30 @@ func (rf *Raft) InstallSnapshot(args *InstallSnapshotArgs, reply *InstallSnapsho
 	}
 
 	if args.Term > rf.currentTerm {
-		rf.currentTerm, rf.votedFor = args.Term, -1
+		// rf.currentTerm, rf.votedFor = args.Term, -1
+		rf.currentTerm = args.Term
 		rf.persist()
+		rf.meState = FOLLOWER
 	}
 
-	rf.meState = FOLLOWER
-	rf.electionTimer.Reset(generateRandTime())
-
-	// < commitIndex not base
-	if args.SnapshotIndex <= rf.commitIndex {
-		DPrintf("[Warning]: network not stable, outdated Snapshot RPC arrive in server %v", rf.me)
+	if args.SnapshotIndex < rf.log[0].SnapshotIndex {
+		reply.Term = rf.currentTerm
 		return
 	}
 
-	msg := ApplyMsg{
-		CommandValid:  false,
-		SnapshotValid: true,
-		Snapshot:      args.Snapshot,
-		SnapshotTerm:  args.SnapshotTerm,
-		SnapshotIndex: args.SnapshotIndex,
-	}
+	rf.meState = FOLLOWER
+	// rf.electionTimer.Reset(generateRandTime())
+	rf.resetElectionTimer()
 
-	go func() { rf.ApplyMsgChan <- msg }()
+	go func() {
+		rf.ApplyMsgChan <- ApplyMsg{
+			CommandValid:  false,
+			SnapshotValid: true,
+			Snapshot:      args.Snapshot,
+			SnapshotTerm:  args.SnapshotTerm,
+			SnapshotIndex: args.SnapshotIndex,
+		}
+	}()
 	reply.Term = rf.currentTerm
 	return
 }

@@ -10,6 +10,7 @@ import (
 type Clerk struct {
 	servers []*labrpc.ClientEnd
 	// You will have to modify this struct.
+	lastLeaderIndex int
 }
 
 func nrand() int64 {
@@ -22,6 +23,7 @@ func nrand() int64 {
 func MakeClerk(servers []*labrpc.ClientEnd) *Clerk {
 	ck := new(Clerk)
 	ck.servers = servers
+	ck.lastLeaderIndex = 0
 	// You'll have to add code here.
 	return ck
 }
@@ -41,6 +43,27 @@ func MakeClerk(servers []*labrpc.ClientEnd) *Clerk {
 func (ck *Clerk) Get(key string) string {
 
 	// You will have to modify this function.
+	request := GetArgs{
+		Key: key,
+	}
+	response := GetReply{}
+	i := ck.lastLeaderIndex
+	for ck.servers[i].Call("KVServer.Get", &request, &response) {
+		if response.Err == ErrWrongLeader {
+			i = (i + 1) % len(ck.servers)
+			if i == ck.lastLeaderIndex {
+				DPrintf("[ERROR]: no leader exist?")
+				break
+			}
+			continue
+		}
+		if response.Err == OK {
+			return response.Value
+		}
+		if response.Err == ErrNoKey {
+			break
+		}
+	}
 	return ""
 }
 
@@ -56,6 +79,26 @@ func (ck *Clerk) Get(key string) string {
 //
 func (ck *Clerk) PutAppend(key string, value string, op string) {
 	// You will have to modify this function.
+	request := PutAppendArgs{
+		Key:   key,
+		Value: value,
+		Op:    op,
+	}
+	response := PutAppendReply{}
+	i := ck.lastLeaderIndex
+	for ck.servers[i].Call("KVServer.PutAppend", &request, &response) {
+		if response.Err == ErrWrongLeader {
+			i = (i + 1) % len(ck.servers)
+			if i == ck.lastLeaderIndex {
+				DPrintf("[ERROR]: no leader exist?")
+				return
+			}
+			continue
+		}
+		if response.Err == OK {
+			return
+		}
+	}
 }
 
 func (ck *Clerk) Put(key string, value string) {

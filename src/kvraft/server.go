@@ -1,12 +1,13 @@
 package kvraft
 
 import (
-	"6.824/labgob"
-	"6.824/labrpc"
-	"6.824/raft"
 	"log"
 	"sync"
 	"sync/atomic"
+
+	"6.824/labgob"
+	"6.824/labrpc"
+	"6.824/raft"
 )
 
 const Debug = false
@@ -18,11 +19,13 @@ func DPrintf(format string, a ...interface{}) (n int, err error) {
 	return
 }
 
-
 type Op struct {
 	// Your definitions here.
 	// Field names must start with capital letters,
 	// otherwise RPC will break.
+	Type  string
+	Key   string
+	Value string
 }
 
 type KVServer struct {
@@ -35,15 +38,53 @@ type KVServer struct {
 	maxraftstate int // snapshot if log grows this big
 
 	// Your definitions here.
+	kvDatabase map[string]string
 }
 
+func (kv *KVServer) is_leader() bool {
+	_, is_leader := kv.rf.GetState()
+	return is_leader
+}
 
 func (kv *KVServer) Get(args *GetArgs, reply *GetReply) {
 	// Your code here.
+	if !kv.is_leader() {
+		reply.Err = ErrWrongLeader
+		return
+	}
 }
 
 func (kv *KVServer) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 	// Your code here.
+	if !kv.is_leader() {
+		reply.Err = ErrWrongLeader
+		return
+	}
+
+	var task Op = Op{
+		Type:  args.Op,
+		Key:   args.Key,
+		Value: args.Value,
+	}
+
+	index, _, _ := kv.rf.Start(task)
+
+	for m := range kv.applyCh {
+		if m.CommandValid {
+			if m.CommandIndex == index {
+				// reply.Err = OK
+				task, ok := m.Command.(Op)
+				if ok {
+					switch task.Type {
+					case "Put":
+						kv.kvDatabase[task.Key] = task.Value
+					case "Append":
+					}
+
+				}
+			}
+		}
+	}
 }
 
 //
@@ -65,6 +106,12 @@ func (kv *KVServer) Kill() {
 func (kv *KVServer) killed() bool {
 	z := atomic.LoadInt32(&kv.dead)
 	return z == 1
+}
+
+func (kv *KVServer) apply_listener() {
+	for !kv.killed() {
+
+	}
 }
 
 //
@@ -96,6 +143,6 @@ func StartKVServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persiste
 	kv.rf = raft.Make(servers, me, persister, kv.applyCh)
 
 	// You may need initialization code here.
-
+	go kv.apply_listener()
 	return kv
 }

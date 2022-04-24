@@ -39,7 +39,7 @@ const (
 )
 
 const (
-	ELECTION_TIME_OUT_BASE = time.Millisecond * 150
+	ELECTION_TIME_OUT_BASE = time.Millisecond * 350
 	HEART_BEAT_TIMEOUT     = time.Millisecond * 120
 )
 
@@ -94,6 +94,7 @@ type Raft struct {
 	meState        int // 当前状态
 	electionTimer  *time.Timer
 	heartbeatTimer *time.Timer
+	timerLock      sync.Mutex
 	commitIndex    int
 	lastApplied    int
 
@@ -108,8 +109,16 @@ type Raft struct {
 	replicatorCond []*sync.Cond
 }
 
-func (rf *Raft) changeState(state int) {
-	rf.meState = state
+func (rf *Raft) resetElectionTimer() {
+	rf.timerLock.Lock()
+	defer rf.timerLock.Unlock()
+	if !rf.electionTimer.Stop() {
+		select {
+		case <-rf.electionTimer.C: //try to drain from the channel
+		default:
+		}
+	}
+	rf.electionTimer.Reset(generateRandTime())
 }
 
 // GetState return currentTerm and whether this server
@@ -159,6 +168,8 @@ func (rf *Raft) readPersist(data []byte) {
 	if data == nil || len(data) < 1 { // bootstrap without any state?
 		return
 	}
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
 	// Your code here (2C).
 	read := bytes.NewBuffer(data)
 	decoder := labgob.NewDecoder(read)
@@ -202,15 +213,19 @@ func (rf *Raft) CondInstallSnapshot(lastIncludedTerm int, lastIncludedIndex int,
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
 	if lastIncludedIndex <= rf.commitIndex {
+		DPrintf("{Node%v} receives a outdated snapshot, refuse", rf.me)
 		return false
 	}
-	if len(rf.log)+rf.log[0].SnapshotIndex > lastIncludedIndex {
+
+	if lastIncludedIndex <= rf.log[len(rf.log)-1].SnapshotIndex && rf.log[lastIncludedIndex-rf.log[0].SnapshotIndex].Term == lastIncludedTerm {
 		rf.log = append([]Entry(nil), rf.log[lastIncludedIndex-rf.log[0].SnapshotIndex:]...)
 	} else {
 		rf.log = make([]Entry, 1)
-		rf.log[0].SnapshotIndex = lastIncludedIndex
-		rf.log[0].Term = lastIncludedTerm
 	}
+
+	rf.log[0].SnapshotIndex = lastIncludedIndex
+	rf.log[0].Term = lastIncludedTerm
+	rf.log[0].Command = nil
 	rf.lastApplied = lastIncludedIndex
 	rf.commitIndex = lastIncludedIndex
 	rf.persistStateAndSnapshot(snapshot)
@@ -227,9 +242,11 @@ func (rf *Raft) Snapshot(index int, snapshot []byte) {
 	defer rf.mu.Unlock()
 	DPrintf("start create snapshot")
 	if index <= rf.log[0].SnapshotIndex {
+		DPrintf("{Node %v} refuse to create snapshot, outdated", rf.me)
 		return
 	}
-	rf.log = rf.log[index-rf.log[0].SnapshotIndex:]
+	rf.log = append([]Entry(nil), rf.log[index-rf.log[0].SnapshotIndex:]...)
+	rf.log[0].Command = nil
 	rf.persistStateAndSnapshot(snapshot)
 }
 
@@ -259,6 +276,9 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
 
+	if rf.killed() {
+		return -1, -1, false
+	}
 	term := rf.currentTerm
 	isLeader := true
 	// Your code here (2B).
@@ -271,8 +291,7 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 	rf.log = append(rf.log, Entry{Command: command, Term: term, SnapshotIndex: index})
 	rf.persist()
 	rf.matchIndex[rf.me] = index
-	rf.nextIndex[rf.me] = index
-	// rf.broadcastHeartBeat()
+	// rf.nextIndex[rf.me] = index
 	rf.broadcastHeartBeat(false)
 	rf.heartbeatTimer.Reset(HEART_BEAT_TIMEOUT)
 	return index, term, isLeader
@@ -292,12 +311,31 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 func (rf *Raft) Kill() {
 	atomic.StoreInt32(&rf.dead, 1)
 	// Your code here, if desired.
-
+	// DPrintf("{Node%v} has been killed", rf.me)
 }
 
 func (rf *Raft) killed() bool {
 	z := atomic.LoadInt32(&rf.dead)
 	return z == 1
+}
+
+func (rf *Raft) set_candidate() {
+	rf.mu.Lock()
+	if rf.meState == LEADER { //check if leader
+		rf.mu.Unlock()
+		return
+	}
+
+	rf.currentTerm++
+	rf.meState = CANDIDATE
+
+	//fmt.Printf("elect of process %d, term is %d\n", rf.me, rf.currentTerm)
+	currentTerm := rf.currentTerm
+	args := rf.genVoteArgs()
+	rf.votedFor = rf.me //vote for itself
+	rf.persist()
+	rf.mu.Unlock()
+	rf.startElection(args, currentTerm)
 }
 
 // The ticker go routine starts a new election if this peer hasn't received
@@ -309,23 +347,20 @@ func (rf *Raft) ticker() {
 		// time.Sleep().
 		select {
 		case <-rf.electionTimer.C:
-			rf.mu.Lock()
-			rf.meState = CANDIDATE
-			rf.currentTerm += 1
-			rf.persist()
-			rf.startElection()
-			rf.electionTimer.Reset(generateRandTime()) // 重设超时时间
-			rf.mu.Unlock()
+			DPrintf("{Node%v}'s etimer finish", rf.me)
+			go rf.set_candidate()
+			rf.electionTimer.Reset(generateRandTime())
 		case <-rf.heartbeatTimer.C:
 			rf.mu.Lock()
 			if rf.meState == LEADER {
-				// rf.broadcastHeartBeat()
+				// DPrintf("{Node%v} send heartbeat, nextIndex=%v\n matchIndex=%v\n", rf.me, rf.nextIndex, rf.matchIndex)
 				rf.broadcastHeartBeat(true)
 				rf.heartbeatTimer.Reset(HEART_BEAT_TIMEOUT)
 			}
 			rf.mu.Unlock()
 		}
 	}
+	// DPrintf("raft server%v has been killed", rf.me)
 }
 
 // applier
@@ -333,8 +368,11 @@ func (rf *Raft) ticker() {
 func (rf *Raft) applier() {
 	for rf.killed() == false {
 		rf.mu.Lock()
-		if rf.lastApplied >= rf.commitIndex {
+		for rf.lastApplied >= rf.commitIndex {
 			rf.applyCond.Wait()
+			if rf.killed() {
+				return
+			}
 		}
 		base, lastApplied, commitIndex := rf.log[0].SnapshotIndex, rf.lastApplied, rf.commitIndex
 		entries := make([]Entry, commitIndex-lastApplied)
@@ -357,7 +395,7 @@ func (rf *Raft) applier() {
 
 func (rf *Raft) replicate(peer int) {
 	rf.mu.Lock()
-	if rf.meState != LEADER {
+	if rf.meState != LEADER || rf.killed() {
 		rf.mu.Unlock()
 		return
 	}
@@ -368,9 +406,10 @@ func (rf *Raft) replicate(peer int) {
 			LeaderId:      rf.me,
 			SnapshotIndex: rf.log[0].SnapshotIndex,
 			SnapshotTerm:  rf.log[0].Term,
-			Snapshot:      rf.persister.snapshot,
+			Snapshot:      rf.persister.ReadSnapshot(),
 		}
 		rf.mu.Unlock()
+		DPrintf("{Node%v} send snapshot%v to{Node%v}", rf.me, requests, peer)
 		rf.sendSnapshot(peer, &requests)
 	} else {
 		request := AppendEntriesArgs{
@@ -382,9 +421,10 @@ func (rf *Raft) replicate(peer int) {
 		if PrevLogIndex > 0 {
 			request.PrevLogTerm = rf.log[request.PrevLogIndex-rf.log[0].SnapshotIndex].Term
 		}
-		if rf.nextIndex[peer] < len(rf.log)+rf.log[0].SnapshotIndex && rf.nextIndex[peer] > rf.log[0].SnapshotIndex {
-			request.Entries = append([]Entry(nil), rf.log[rf.nextIndex[peer]-rf.log[0].SnapshotIndex:]...)
-			DPrintf("send log%v-%v to server%v", request.Entries[0].SnapshotIndex, request.Entries[len(request.Entries)-1].SnapshotIndex, rf.me)
+		request.Entries = make([]Entry, len(rf.log[rf.nextIndex[peer]-rf.log[0].SnapshotIndex:]))
+		copy(request.Entries, rf.log[rf.nextIndex[peer]-rf.log[0].SnapshotIndex:])
+		if len(request.Entries) != 0 {
+			DPrintf("leader {Node%v} send log%v-%v to {Node%v}", rf.me, request.Entries[0].SnapshotIndex, request.Entries[len(request.Entries)-1].SnapshotIndex, peer)
 		}
 		rf.mu.Unlock()
 		response := AppendEntriesReply{}
@@ -397,7 +437,7 @@ func (rf *Raft) replicate(peer int) {
 func (rf *Raft) need_replicate(peer int) bool {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
-	return rf.meState == LEADER && rf.matchIndex[peer] < rf.log[len(rf.log)-1].SnapshotIndex
+	return rf.meState == LEADER && rf.nextIndex[peer] <= rf.log[len(rf.log)-1].SnapshotIndex
 }
 
 func (rf *Raft) replicator(peer int) {
@@ -443,9 +483,16 @@ func Make(peers []*labrpc.ClientEnd, me int,
 		ApplyMsgChan:   applyCh,
 		replicatorCond: make([]*sync.Cond, len(peers)),
 	}
+
+	rf.applyCond = sync.NewCond(&rf.mu)
+	// initialize from state persisted before a crash
+	rf.readPersist(persister.ReadRaftState())
 	for i := range rf.nextIndex {
-		rf.nextIndex[i] = 1
+		rf.nextIndex[i] = rf.log[0].SnapshotIndex + 1
 	}
+	rf.lastApplied = rf.log[0].SnapshotIndex
+	rf.commitIndex = rf.log[0].SnapshotIndex
+	// start ticker goroutine to start elections
 	for i := 0; i < len(rf.peers); i++ {
 		if i == rf.me {
 			continue
@@ -453,12 +500,6 @@ func Make(peers []*labrpc.ClientEnd, me int,
 		rf.replicatorCond[i] = sync.NewCond(&sync.Mutex{})
 		go rf.replicator(i)
 	}
-	rf.applyCond = sync.NewCond(&rf.mu)
-	// initialize from state persisted before a crash
-	rf.readPersist(persister.ReadRaftState())
-	rf.lastApplied = rf.log[0].SnapshotIndex
-	rf.commitIndex = rf.log[0].SnapshotIndex
-	// start ticker goroutine to start elections
 	go rf.ticker()
 	go rf.applier()
 

@@ -1,0 +1,2500 @@
+test_num_1
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.6  5 2118 4247914  129
+PASS
+ok  	6.824/raft	33.610s
+test_num_2
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.8  5 2233 3588201  154
+PASS
+ok  	6.824/raft	35.819s
+test_num_3
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.5  5 2386 5286965  200
+PASS
+ok  	6.824/raft	37.475s
+test_num_4
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.2  5 1864 4930106  196
+PASS
+ok  	6.824/raft	31.202s
+test_num_5
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.6  5 1899 2288189   74
+PASS
+ok  	6.824/raft	31.602s
+test_num_6
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  29.1  5 1751 3810592  415
+PASS
+ok  	6.824/raft	29.142s
+test_num_7
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.5  5 1817 3306192  398
+PASS
+ok  	6.824/raft	31.457s
+test_num_8
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  28.6  5 1642 3522634  142
+PASS
+ok  	6.824/raft	28.652s
+test_num_9
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.5  5 1952 3426673  170
+PASS
+ok  	6.824/raft	32.545s
+test_num_10
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.9  5 1835 2967189  114
+PASS
+ok  	6.824/raft	30.875s
+test_num_11
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.4  5 2156 4132246  452
+PASS
+ok  	6.824/raft	34.378s
+test_num_12
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  29.7  5 1832 4454166  251
+PASS
+ok  	6.824/raft	29.675s
+test_num_13
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.7  5 2267 5561213  274
+PASS
+ok  	6.824/raft	35.660s
+test_num_14
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.9  5 2032 2985204  226
+PASS
+ok  	6.824/raft	34.916s
+test_num_15
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.8  5 2054 5276417  206
+PASS
+ok  	6.824/raft	33.775s
+test_num_16
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.0  5 2334 6136122  142
+PASS
+ok  	6.824/raft	35.961s
+test_num_17
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.1  5 1889 4067290   61
+PASS
+ok  	6.824/raft	31.141s
+test_num_18
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.0  5 2143 5298401  447
+PASS
+ok  	6.824/raft	34.048s
+test_num_19
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  41.9  5 2534 3652273  316
+PASS
+ok  	6.824/raft	41.909s
+test_num_20
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  38.3  5 2443 4576081  119
+PASS
+ok  	6.824/raft	38.330s
+test_num_21
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.4  5 2365 4962850  207
+PASS
+ok  	6.824/raft	36.452s
+test_num_22
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.8  5 1971 6395462   65
+PASS
+ok  	6.824/raft	31.786s
+test_num_23
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.6  5 2016 5968548   81
+PASS
+ok  	6.824/raft	34.558s
+test_num_24
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.6  5 2104 2995423  119
+PASS
+ok  	6.824/raft	34.557s
+test_num_25
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.1  5 1922 5212290  198
+PASS
+ok  	6.824/raft	31.083s
+test_num_26
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.2  5 2316 4032519  189
+PASS
+ok  	6.824/raft	35.227s
+test_num_27
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.6  5 2076 5660886  169
+PASS
+ok  	6.824/raft	34.613s
+test_num_28
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.6  5 2513 5010342  113
+PASS
+ok  	6.824/raft	37.644s
+test_num_29
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.0  5 2008 5836089  185
+PASS
+ok  	6.824/raft	32.988s
+test_num_30
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  29.5  5 1615 3759526  115
+PASS
+ok  	6.824/raft	29.507s
+test_num_31
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.7  5 1939 3596134  127
+PASS
+ok  	6.824/raft	31.752s
+test_num_32
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.7  5 1883 3643042  167
+PASS
+ok  	6.824/raft	31.733s
+test_num_33
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.0  5 2344 4551372  243
+PASS
+ok  	6.824/raft	37.051s
+test_num_34
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.1  5 1936 4579387  292
+PASS
+ok  	6.824/raft	32.122s
+test_num_35
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  43.1  5 2810 8250964  369
+PASS
+ok  	6.824/raft	43.089s
+test_num_36
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.6  5 2152 4730268   92
+PASS
+ok  	6.824/raft	34.617s
+test_num_37
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.2  5 1920 3219741   43
+PASS
+ok  	6.824/raft	30.247s
+test_num_38
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.1  5 2050 3518252  212
+PASS
+ok  	6.824/raft	35.141s
+test_num_39
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.3  5 2173 4672361  241
+PASS
+ok  	6.824/raft	34.319s
+test_num_40
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.0  5 2169 4232286  221
+PASS
+ok  	6.824/raft	36.022s
+test_num_41
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.3  5 2024 3827608  566
+PASS
+ok  	6.824/raft	35.295s
+test_num_42
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.9  5 2010 6812450   39
+PASS
+ok  	6.824/raft	31.859s
+test_num_43
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.9  5 2231 2970098  126
+PASS
+ok  	6.824/raft	35.948s
+test_num_44
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.0  5 2070 4107990  259
+PASS
+ok  	6.824/raft	35.036s
+test_num_45
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.4  5 1938 4055224  513
+PASS
+ok  	6.824/raft	30.383s
+test_num_46
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.6  5 2174 5190060  128
+PASS
+ok  	6.824/raft	35.625s
+test_num_47
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.9  5 2387 4122891  346
+PASS
+ok  	6.824/raft	37.871s
+test_num_48
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.7  5 2101 3292753  105
+PASS
+ok  	6.824/raft	35.670s
+test_num_49
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.2  5 1988 5896417  406
+PASS
+ok  	6.824/raft	33.158s
+test_num_50
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.9  5 2055 2719603  216
+PASS
+ok  	6.824/raft	33.899s
+test_num_51
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.2  5 2203 4944348  298
+PASS
+ok  	6.824/raft	34.157s
+test_num_52
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.5  5 2219 7241744  426
+PASS
+ok  	6.824/raft	35.502s
+test_num_53
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.0  5 1940 4831094  490
+PASS
+ok  	6.824/raft	30.962s
+test_num_54
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.5  5 1914 4842212  165
+PASS
+ok  	6.824/raft	32.523s
+test_num_55
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.4  5 2272 6078598  117
+PASS
+ok  	6.824/raft	36.425s
+test_num_56
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.8  5 1876 4118369   57
+PASS
+ok  	6.824/raft	31.852s
+test_num_57
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.5  5 2256 5992803  302
+PASS
+ok  	6.824/raft	35.545s
+test_num_58
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  39.0  5 2505 4664926   95
+PASS
+ok  	6.824/raft	38.973s
+test_num_59
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.0  5 2067 4239079  222
+PASS
+ok  	6.824/raft	33.968s
+test_num_60
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.2  5 2014 4067714  336
+PASS
+ok  	6.824/raft	32.229s
+test_num_61
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  38.1  5 2400 5032114   75
+PASS
+ok  	6.824/raft	38.092s
+test_num_62
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.4  5 2396 5840144  299
+PASS
+ok  	6.824/raft	37.355s
+test_num_63
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  40.1  5 2553 4931903  454
+PASS
+ok  	6.824/raft	40.066s
+test_num_64
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.3  5 2187 4884776  149
+PASS
+ok  	6.824/raft	35.290s
+test_num_65
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.1  5 2105 6280794  344
+PASS
+ok  	6.824/raft	34.135s
+test_num_66
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.2  5 2083 6683587  463
+PASS
+ok  	6.824/raft	33.173s
+test_num_67
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.5  5 1967 3770401  141
+PASS
+ok  	6.824/raft	33.484s
+test_num_68
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.9  5 1969 4535281  485
+PASS
+ok  	6.824/raft	32.856s
+test_num_69
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  29.4  5 1647 1539775  110
+PASS
+ok  	6.824/raft	29.421s
+test_num_70
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.3  5 2105 4829924  277
+PASS
+ok  	6.824/raft	33.285s
+test_num_71
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.1  5 1770 4454094  144
+PASS
+ok  	6.824/raft	30.115s
+test_num_72
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.9  5 2366 5486333  364
+PASS
+ok  	6.824/raft	36.937s
+test_num_73
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.8  5 2293 5541370  558
+PASS
+ok  	6.824/raft	34.785s
+test_num_74
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  29.8  5 1746 2663877  237
+PASS
+ok  	6.824/raft	29.808s
+test_num_75
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.8  5 1840 3930392  423
+PASS
+ok  	6.824/raft	30.849s
+test_num_76
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.8  5 2042 2617036  340
+PASS
+ok  	6.824/raft	32.805s
+test_num_77
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.3  5 2182 4079514  149
+PASS
+ok  	6.824/raft	35.272s
+test_num_78
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  38.0  5 2278 5371006  352
+PASS
+ok  	6.824/raft	37.997s
+test_num_79
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.8  5 2260 3346150  245
+PASS
+ok  	6.824/raft	36.806s
+test_num_80
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.2  5 2081 6893579  228
+PASS
+ok  	6.824/raft	34.180s
+test_num_81
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  39.5  5 2539 10142406  149
+PASS
+ok  	6.824/raft	39.529s
+test_num_82
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.5  5 1822 4305654  531
+PASS
+ok  	6.824/raft	31.457s
+test_num_83
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.5  5 2349 4615674   89
+PASS
+ok  	6.824/raft	36.493s
+test_num_84
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  29.0  5 1669 3846574  159
+PASS
+ok  	6.824/raft	29.025s
+test_num_85
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.4  5 1995 4043055  364
+PASS
+ok  	6.824/raft	32.424s
+test_num_86
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.5  5 1866 4651387  228
+PASS
+ok  	6.824/raft	32.545s
+test_num_87
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.1  5 2096 4109225  279
+PASS
+ok  	6.824/raft	33.089s
+test_num_88
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.2  5 2025 3876930  147
+PASS
+ok  	6.824/raft	33.208s
+test_num_89
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.0  5 2350 2919734  289
+PASS
+ok  	6.824/raft	36.011s
+test_num_90
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  28.8  5 1743 2964132  140
+PASS
+ok  	6.824/raft	28.819s
+test_num_91
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.7  5 2246 5096938   26
+PASS
+ok  	6.824/raft	35.700s
+test_num_92
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.3  5 2479 3663228  184
+PASS
+ok  	6.824/raft	37.329s
+test_num_93
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.4  5 2056 5176277  130
+PASS
+ok  	6.824/raft	35.366s
+test_num_94
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.2  5 2275 3473182  144
+PASS
+ok  	6.824/raft	35.171s
+test_num_95
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.2  5 2135 5552557  139
+PASS
+ok  	6.824/raft	34.232s
+test_num_96
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.7  5 2020 4608746   51
+PASS
+ok  	6.824/raft	32.715s
+test_num_97
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.8  5 2323 4525596  325
+PASS
+ok  	6.824/raft	35.853s
+test_num_98
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.5  5 1966 6140454   35
+PASS
+ok  	6.824/raft	32.482s
+test_num_99
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  38.2  5 2487 4790315  101
+PASS
+ok  	6.824/raft	38.200s
+test_num_100
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.1  5 2048 7596194  338
+PASS
+ok  	6.824/raft	33.120s
+test_num_101
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.8  5 2109 4005227  615
+PASS
+ok  	6.824/raft	33.849s
+test_num_102
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  28.1  5 1620 2835554  215
+PASS
+ok  	6.824/raft	28.083s
+test_num_103
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.9  5 2070 3525730   47
+PASS
+ok  	6.824/raft	34.920s
+test_num_104
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.4  5 2336 7661608  293
+PASS
+ok  	6.824/raft	37.377s
+test_num_105
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  29.9  5 1850 3787289  152
+PASS
+ok  	6.824/raft	29.930s
+test_num_106
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.2  5 2021 4786274   55
+PASS
+ok  	6.824/raft	31.209s
+test_num_107
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.1  5 1899 4782095  149
+PASS
+ok  	6.824/raft	32.063s
+test_num_108
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.0  5 2036 4339225  237
+PASS
+ok  	6.824/raft	33.966s
+test_num_109
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.5  5 1881 4113575   84
+PASS
+ok  	6.824/raft	32.485s
+test_num_110
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.7  5 2341 4399202  462
+PASS
+ok  	6.824/raft	36.707s
+test_num_111
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.2  5 2007 4768486  208
+PASS
+ok  	6.824/raft	31.233s
+test_num_112
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.9  5 2269 3051039  166
+PASS
+ok  	6.824/raft	35.942s
+test_num_113
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.1  5 2238 3092754  266
+PASS
+ok  	6.824/raft	35.078s
+test_num_114
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.0  5 2061 4640316  219
+PASS
+ok  	6.824/raft	33.030s
+test_num_115
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.7  5 2067 3804059  180
+PASS
+ok  	6.824/raft	33.708s
+test_num_116
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  29.9  5 1887 4855839  333
+PASS
+ok  	6.824/raft	29.878s
+test_num_117
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.7  5 1961 6285224  341
+PASS
+ok  	6.824/raft	33.656s
+test_num_118
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.8  5 2241 4564949  637
+PASS
+ok  	6.824/raft	34.759s
+test_num_119
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.3  5 2253 5827303  100
+PASS
+ok  	6.824/raft	35.317s
+test_num_120
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.9  5 2012 4091310   95
+PASS
+ok  	6.824/raft	32.860s
+test_num_121
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.0  5 2270 3747867  195
+PASS
+ok  	6.824/raft	35.013s
+test_num_122
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.5  5 1917 3796108  111
+PASS
+ok  	6.824/raft	33.516s
+test_num_123
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  38.1  5 2468 5124190  474
+PASS
+ok  	6.824/raft	38.109s
+test_num_124
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.0  5 2220 5462566  269
+PASS
+ok  	6.824/raft	35.033s
+test_num_125
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.8  5 2169 6489502  177
+PASS
+ok  	6.824/raft	34.812s
+test_num_126
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.1  5 1856 4007186  361
+PASS
+ok  	6.824/raft	32.127s
+test_num_127
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.5  5 1953 4926786  673
+PASS
+ok  	6.824/raft	32.499s
+test_num_128
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.9  5 2401 5959691  145
+PASS
+ok  	6.824/raft	36.896s
+test_num_129
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.1  5 2095 7177479   69
+PASS
+ok  	6.824/raft	34.096s
+test_num_130
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.4  5 2200 3700383  152
+PASS
+ok  	6.824/raft	36.371s
+test_num_131
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.1  5 1943 4238478  169
+PASS
+ok  	6.824/raft	32.087s
+test_num_132
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.7  5 1978 3679508  247
+PASS
+ok  	6.824/raft	31.727s
+test_num_133
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  38.7  5 2322 4313975   18
+PASS
+ok  	6.824/raft	38.751s
+test_num_134
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.4  5 1833 4995298   55
+PASS
+ok  	6.824/raft	31.389s
+test_num_135
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  39.1  5 2470 4664822  233
+PASS
+ok  	6.824/raft	39.094s
+test_num_136
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.0  5 2124 6322358  378
+PASS
+ok  	6.824/raft	35.039s
+test_num_137
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.9  5 1961 5237148  104
+PASS
+ok  	6.824/raft	33.918s
+test_num_138
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.1  5 2290 3802862   52
+PASS
+ok  	6.824/raft	37.116s
+test_num_139
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.2  5 1904 3204300  159
+PASS
+ok  	6.824/raft	31.242s
+test_num_140
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.4  5 1885 5918043  111
+PASS
+ok  	6.824/raft	30.427s
+test_num_141
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.2  5 1857 4780966   89
+PASS
+ok  	6.824/raft	31.212s
+test_num_142
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.3  5 2140 6235962  189
+PASS
+ok  	6.824/raft	34.347s
+test_num_143
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.0  5 2103 3856445  261
+PASS
+ok  	6.824/raft	33.999s
+test_num_144
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  41.3  5 2598 8318731   72
+PASS
+ok  	6.824/raft	41.311s
+test_num_145
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.3  5 1863 4551155  695
+PASS
+ok  	6.824/raft	31.337s
+test_num_146
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.3  5 2195 7279472  224
+PASS
+ok  	6.824/raft	35.294s
+test_num_147
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.6  5 2063 4362849  252
+PASS
+ok  	6.824/raft	33.593s
+test_num_148
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  29.0  5 1665 3933053  183
+PASS
+ok  	6.824/raft	28.955s
+test_num_149
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.5  5 1935 5159215   51
+PASS
+ok  	6.824/raft	32.499s
+test_num_150
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.3  5 2247 4076915  389
+PASS
+ok  	6.824/raft	36.324s
+test_num_151
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.0  5 2090 3929907  456
+PASS
+ok  	6.824/raft	34.027s
+test_num_152
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  38.8  5 2414 4357531  118
+PASS
+ok  	6.824/raft	38.831s
+test_num_153
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  39.4  5 2473 6538902  311
+PASS
+ok  	6.824/raft	39.411s
+test_num_154
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.4  5 2031 5508416  153
+PASS
+ok  	6.824/raft	32.398s
+test_num_155
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.3  5 2210 3863062  282
+PASS
+ok  	6.824/raft	35.341s
+test_num_156
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.7  5 2308 6851706  733
+PASS
+ok  	6.824/raft	35.697s
+test_num_157
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.7  5 2023 4553416  411
+PASS
+ok  	6.824/raft	31.733s
+test_num_158
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.3  5 2230 4093919  236
+PASS
+ok  	6.824/raft	35.283s
+test_num_159
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.0  5 2238 3331953  238
+PASS
+ok  	6.824/raft	36.001s
+test_num_160
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.4  5 2207 3613497  124
+PASS
+ok  	6.824/raft	34.401s
+test_num_161
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.4  5 1898 4655911  435
+PASS
+ok  	6.824/raft	33.360s
+test_num_162
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.6  5 2115 3724008  243
+PASS
+ok  	6.824/raft	33.651s
+test_num_163
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.8  5 1980 5392728  148
+PASS
+ok  	6.824/raft	32.765s
+test_num_164
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.6  5 2126 2457604  274
+PASS
+ok  	6.824/raft	35.620s
+test_num_165
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  38.5  5 2357 3677565  278
+PASS
+ok  	6.824/raft	38.533s
+test_num_166
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.2  5 2290 4875732  121
+PASS
+ok  	6.824/raft	37.223s
+test_num_167
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.5  5 2063 2935838  190
+PASS
+ok  	6.824/raft	34.545s
+test_num_168
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.3  5 2088 3578417  163
+PASS
+ok  	6.824/raft	35.308s
+test_num_169
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.5  5 2133 6408694  432
+PASS
+ok  	6.824/raft	35.493s
+test_num_170
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.0  5 1916 5126337  152
+PASS
+ok  	6.824/raft	31.013s
+test_num_171
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.7  5 2303 3303964  294
+PASS
+ok  	6.824/raft	36.660s
+test_num_172
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  29.3  5 1763 3153645  261
+PASS
+ok  	6.824/raft	29.320s
+test_num_173
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.0  5 2159 3928513  499
+PASS
+ok  	6.824/raft	34.977s
+test_num_174
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.9  5 2208 4421478  432
+PASS
+ok  	6.824/raft	35.873s
+test_num_175
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.7  5 2071 6169325   64
+PASS
+ok  	6.824/raft	32.709s
+test_num_176
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.6  5 2246 7013887  135
+PASS
+ok  	6.824/raft	34.608s
+test_num_177
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.6  5 2174 3678171   89
+PASS
+ok  	6.824/raft	35.623s
+test_num_178
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.7  5 2286 4034546  183
+PASS
+ok  	6.824/raft	36.711s
+test_num_179
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.7  5 2039 3143681  233
+PASS
+ok  	6.824/raft	32.737s
+test_num_180
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.0  5 2136 5424575  637
+PASS
+ok  	6.824/raft	33.007s
+test_num_181
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  27.8  5 1656 6823041  599
+PASS
+ok  	6.824/raft	27.836s
+test_num_182
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  38.4  5 2537 6672064   62
+PASS
+ok  	6.824/raft	38.428s
+test_num_183
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.7  5 1764 3316365   45
+PASS
+ok  	6.824/raft	30.705s
+test_num_184
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.4  5 2105 4766506  355
+PASS
+ok  	6.824/raft	35.396s
+test_num_185
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.4  5 2174 4432865  113
+PASS
+ok  	6.824/raft	34.380s
+test_num_186
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.5  5 2412 5929648  513
+PASS
+ok  	6.824/raft	37.471s
+test_num_187
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.3  5 2316 4620290  122
+PASS
+ok  	6.824/raft	37.314s
+test_num_188
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.4  5 2041 3348708  192
+PASS
+ok  	6.824/raft	32.444s
+test_num_189
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.0  5 2238 5370094  291
+PASS
+ok  	6.824/raft	34.005s
+test_num_190
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.5  5 1893 4793815  128
+PASS
+ok  	6.824/raft	32.533s
+test_num_191
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.0  5 2337 4243199  316
+PASS
+ok  	6.824/raft	34.979s
+test_num_192
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.6  5 1953 3235926  170
+PASS
+ok  	6.824/raft	31.625s
+test_num_193
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.2  5 1952 4229457  318
+PASS
+ok  	6.824/raft	32.195s
+test_num_194
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.3  5 2055 2069218   45
+PASS
+ok  	6.824/raft	34.325s
+test_num_195
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.1  5 2160 3633841  195
+PASS
+ok  	6.824/raft	34.058s
+test_num_196
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.5  5 2429 4453681  258
+PASS
+ok  	6.824/raft	37.485s
+test_num_197
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.9  5 2290 7474789  375
+PASS
+ok  	6.824/raft	35.941s
+test_num_198
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.0  5 1860 5066190  166
+PASS
+ok  	6.824/raft	31.024s
+test_num_199
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.4  5 2448 4979270  236
+PASS
+ok  	6.824/raft	36.442s
+test_num_200
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.1  5 2091 5704675  488
+PASS
+ok  	6.824/raft	34.064s
+test_num_201
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.6  5 1842 3522498  359
+PASS
+ok  	6.824/raft	30.629s
+test_num_202
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.1  5 1924 4794999  253
+PASS
+ok  	6.824/raft	34.102s
+test_num_203
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.6  5 2208 3040360  130
+PASS
+ok  	6.824/raft	36.588s
+test_num_204
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.4  5 2097 7025903  191
+PASS
+ok  	6.824/raft	33.400s
+test_num_205
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.0  5 2098 3140265  482
+PASS
+ok  	6.824/raft	35.030s
+test_num_206
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.2  5 1807 3196947  305
+PASS
+ok  	6.824/raft	30.177s
+test_num_207
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.6  5 2190 4948358  481
+PASS
+ok  	6.824/raft	34.584s
+test_num_208
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.8  5 2043 3527814   88
+PASS
+ok  	6.824/raft	35.799s
+test_num_209
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.9  5 2081 2861181  423
+PASS
+ok  	6.824/raft	34.855s
+test_num_210
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.9  5 1857 6397348  254
+PASS
+ok  	6.824/raft	30.878s
+test_num_211
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.1  5 1897 3729646  490
+PASS
+ok  	6.824/raft	31.150s
+test_num_212
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.6  5 2333 4891196  373
+PASS
+ok  	6.824/raft	36.645s
+test_num_213
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  38.4  5 2179 5283241  133
+PASS
+ok  	6.824/raft	38.429s
+test_num_214
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.0  5 1782 4876596  349
+PASS
+ok  	6.824/raft	30.025s
+test_num_215
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.1  5 2113 3238818  189
+PASS
+ok  	6.824/raft	36.066s
+test_num_216
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.7  5 2188 3644196  446
+PASS
+ok  	6.824/raft	36.664s
+test_num_217
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.8  5 2394 4093221  425
+PASS
+ok  	6.824/raft	36.825s
+test_num_218
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.3  5 2277 4823738  175
+PASS
+ok  	6.824/raft	36.345s
+test_num_219
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.8  5 2042 4380930  234
+PASS
+ok  	6.824/raft	33.769s
+test_num_220
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.9  5 2253 3171223  146
+PASS
+ok  	6.824/raft	34.863s
+test_num_221
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  38.0  5 2557 5772855  424
+PASS
+ok  	6.824/raft	38.009s
+test_num_222
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.7  5 1772 4897451  136
+PASS
+ok  	6.824/raft	30.682s
+test_num_223
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.4  5 2252 6641243  239
+PASS
+ok  	6.824/raft	36.367s
+test_num_224
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.7  5 2305 5783401  226
+PASS
+ok  	6.824/raft	35.656s
+test_num_225
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.5  5 2161 5374796  646
+PASS
+ok  	6.824/raft	34.461s
+test_num_226
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.8  5 1937 5924932  128
+PASS
+ok  	6.824/raft	31.820s
+test_num_227
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.2  5 1777 2412950   64
+PASS
+ok  	6.824/raft	30.213s
+test_num_228
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.8  5 2063 3821290  345
+PASS
+ok  	6.824/raft	31.837s
+test_num_229
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.6  5 1894 5733141   30
+PASS
+ok  	6.824/raft	33.634s
+test_num_230
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.3  5 1807 3577837  135
+PASS
+ok  	6.824/raft	30.265s
+test_num_231
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  38.8  5 2397 3318190  127
+PASS
+ok  	6.824/raft	38.831s
+test_num_232
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  38.9  5 2128 2670862  400
+PASS
+ok  	6.824/raft	38.893s
+test_num_233
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  29.6  5 1774 4318208   27
+PASS
+ok  	6.824/raft	29.572s
+test_num_234
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.5  5 2265 5760975  129
+PASS
+ok  	6.824/raft	36.510s
+test_num_235
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.5  5 2200 3410658  135
+PASS
+ok  	6.824/raft	36.481s
+test_num_236
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.5  5 2166 4826722  224
+PASS
+ok  	6.824/raft	35.531s
+test_num_237
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.1  5 1866 4668787  246
+PASS
+ok  	6.824/raft	30.128s
+test_num_238
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.2  5 1874 3014515  233
+PASS
+ok  	6.824/raft	31.154s
+test_num_239
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.7  5 1877 4459037  286
+PASS
+ok  	6.824/raft	30.658s
+test_num_240
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.0  5 2233 2914117  421
+PASS
+ok  	6.824/raft	35.037s
+test_num_241
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.7  5 2236 6839368   60
+PASS
+ok  	6.824/raft	35.742s
+test_num_242
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.8  5 2119 6510480   14
+PASS
+ok  	6.824/raft	33.773s
+test_num_243
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.9  5 2165 5516686  308
+PASS
+ok  	6.824/raft	35.872s
+test_num_244
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.7  5 2010 4253132   47
+PASS
+ok  	6.824/raft	32.715s
+test_num_245
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.6  5 1981 4829686  128
+PASS
+ok  	6.824/raft	33.633s
+test_num_246
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.5  5 2307 5127235  647
+PASS
+ok  	6.824/raft	36.527s
+test_num_247
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  38.9  5 2530 5552639  304
+PASS
+ok  	6.824/raft	38.944s
+test_num_248
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.0  5 2447 3368520  151
+PASS
+ok  	6.824/raft	36.966s
+test_num_249
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.6  5 2179 4010189  224
+PASS
+ok  	6.824/raft	34.585s
+test_num_250
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.3  5 1918 4658046   64
+PASS
+ok  	6.824/raft	32.344s
+test_num_251
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.5  5 2003 4696301  443
+PASS
+ok  	6.824/raft	32.468s
+test_num_252
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.9  5 2101 2818612  207
+PASS
+ok  	6.824/raft	33.885s
+test_num_253
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.8  5 2003 3676878  300
+PASS
+ok  	6.824/raft	31.808s
+test_num_254
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.7  5 2310 6929855  383
+PASS
+ok  	6.824/raft	36.724s
+test_num_255
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.4  5 2059 2761763  157
+PASS
+ok  	6.824/raft	34.366s
+test_num_256
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.2  5 2248 5309778   93
+PASS
+ok  	6.824/raft	35.170s
+test_num_257
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.6  5 2221 3401100  322
+PASS
+ok  	6.824/raft	36.597s
+test_num_258
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.5  5 2433 6964935   74
+PASS
+ok  	6.824/raft	37.549s
+test_num_259
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  38.7  5 2459 7094034  258
+PASS
+ok  	6.824/raft	38.672s
+test_num_260
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.0  5 1678 2752266  127
+PASS
+ok  	6.824/raft	29.965s
+test_num_261
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.7  5 2280 3430394  266
+PASS
+ok  	6.824/raft	35.676s
+test_num_262
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.5  5 2467 4903367  142
+PASS
+ok  	6.824/raft	36.513s
+test_num_263
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.7  5 1783 6398493  175
+PASS
+ok  	6.824/raft	30.674s
+test_num_264
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.0  5 2316 4421213   89
+PASS
+ok  	6.824/raft	35.976s
+test_num_265
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.9  5 1910 3978102  525
+PASS
+ok  	6.824/raft	30.883s
+test_num_266
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.6  5 1992 2745757  329
+PASS
+ok  	6.824/raft	33.653s
+test_num_267
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  29.8  5 1769 5051790   97
+PASS
+ok  	6.824/raft	29.840s
+test_num_268
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.5  5 1850 6536280  765
+PASS
+ok  	6.824/raft	31.530s
+test_num_269
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.2  5 2135 6642028  113
+PASS
+ok  	6.824/raft	35.204s
+test_num_270
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.1  5 1997 4262335  222
+PASS
+ok  	6.824/raft	32.126s
+test_num_271
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.4  5 2179 4307293   91
+PASS
+ok  	6.824/raft	35.445s
+test_num_272
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.7  5 2104 3193646  145
+PASS
+ok  	6.824/raft	33.681s
+test_num_273
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.7  5 2455 4333023  389
+PASS
+ok  	6.824/raft	37.654s
+test_num_274
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.4  5 2153 3670610  261
+PASS
+ok  	6.824/raft	35.380s
+test_num_275
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.7  5 2083 5334843   25
+PASS
+ok  	6.824/raft	33.732s
+test_num_276
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.4  5 1904 4442077  180
+PASS
+ok  	6.824/raft	30.426s
+test_num_277
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.6  5 2263 5014098   70
+PASS
+ok  	6.824/raft	34.646s
+test_num_278
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.5  5 2045 4256301  170
+PASS
+ok  	6.824/raft	32.477s
+test_num_279
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.8  5 2318 4331670   81
+PASS
+ok  	6.824/raft	34.812s
+test_num_280
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.2  5 2090 4561766  438
+PASS
+ok  	6.824/raft	35.221s
+test_num_281
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.3  5 1738 3076420  320
+PASS
+ok  	6.824/raft	30.259s
+test_num_282
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.3  5 1803 6078410   23
+PASS
+ok  	6.824/raft	30.265s
+test_num_283
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.9  5 1918 3359532  349
+PASS
+ok  	6.824/raft	31.894s
+test_num_284
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.7  5 2161 3528091   44
+PASS
+ok  	6.824/raft	34.741s
+test_num_285
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.0  5 2121 4740829  249
+PASS
+ok  	6.824/raft	33.046s
+test_num_286
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.5  5 2170 5987922  371
+PASS
+ok  	6.824/raft	35.512s
+test_num_287
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.8  5 2034 5934240   45
+PASS
+ok  	6.824/raft	34.815s
+test_num_288
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.5  5 1697 1671783  269
+PASS
+ok  	6.824/raft	32.552s
+test_num_289
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.7  5 2005 2331980  157
+PASS
+ok  	6.824/raft	31.667s
+test_num_290
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.5  5 2064 3737556  486
+PASS
+ok  	6.824/raft	33.543s
+test_num_291
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.6  5 2348 7163951  260
+PASS
+ok  	6.824/raft	35.615s
+test_num_292
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.3  5 2045 2784182  156
+PASS
+ok  	6.824/raft	31.301s
+test_num_293
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  39.1  5 2370 5467383  115
+PASS
+ok  	6.824/raft	39.072s
+test_num_294
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.1  5 2124 6910763  394
+PASS
+ok  	6.824/raft	33.120s
+test_num_295
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.4  5 2175 3893815  341
+PASS
+ok  	6.824/raft	36.404s
+test_num_296
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.2  5 2136 4687092  497
+PASS
+ok  	6.824/raft	34.160s
+test_num_297
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  29.5  5 1800 5730831   89
+PASS
+ok  	6.824/raft	29.533s
+test_num_298
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  28.0  5 1641 4921469   82
+PASS
+ok  	6.824/raft	28.040s
+test_num_299
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.4  5 2297 4868552  458
+PASS
+ok  	6.824/raft	36.410s
+test_num_300
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.9  5 2003 2880466  272
+PASS
+ok  	6.824/raft	32.890s
+test_num_301
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.2  5 1938 5233715   67
+PASS
+ok  	6.824/raft	32.169s
+test_num_302
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.3  5 1954 5428611  437
+PASS
+ok  	6.824/raft	31.309s
+test_num_303
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.5  5 2127 4544027  228
+PASS
+ok  	6.824/raft	35.480s
+test_num_304
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.8  5 2226 3322672  301
+PASS
+ok  	6.824/raft	33.771s
+test_num_305
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.3  5 2111 4105886   77
+PASS
+ok  	6.824/raft	36.280s
+test_num_306
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.9  5 2061 3693196  333
+PASS
+ok  	6.824/raft	31.907s
+test_num_307
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.2  5 2206 6101390  345
+PASS
+ok  	6.824/raft	34.227s
+test_num_308
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.2  5 2037 3947291  237
+PASS
+ok  	6.824/raft	34.193s
+test_num_309
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.5  5 2047 3368846  143
+PASS
+ok  	6.824/raft	33.486s
+test_num_310
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  27.0  5 1573 5025567  164
+PASS
+ok  	6.824/raft	27.040s
+test_num_311
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.5  5 2277 4795809  581
+PASS
+ok  	6.824/raft	37.473s
+test_num_312
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.0  5 2252 3826734  131
+PASS
+ok  	6.824/raft	35.959s
+test_num_313
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.3  5 2126 5211812  417
+PASS
+ok  	6.824/raft	34.303s
+test_num_314
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  38.8  5 2461 4047053  319
+PASS
+ok  	6.824/raft	38.765s
+test_num_315
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.0  5 1854 5035277   89
+PASS
+ok  	6.824/raft	31.005s
+test_num_316
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  28.9  5 1761 3098286  190
+PASS
+ok  	6.824/raft	28.905s
+test_num_317
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.2  5 2255 4268180  153
+PASS
+ok  	6.824/raft	36.157s
+test_num_318
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.3  5 2238 3204505   65
+PASS
+ok  	6.824/raft	36.263s
+test_num_319
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  29.7  5 1926 3142758  270
+PASS
+ok  	6.824/raft	29.741s
+test_num_320
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.0  5 1937 6199482  413
+PASS
+ok  	6.824/raft	32.042s
+test_num_321
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.2  5 1967 3864834  422
+PASS
+ok  	6.824/raft	32.203s
+test_num_322
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.8  5 2122 3823877  248
+PASS
+ok  	6.824/raft	35.782s
+test_num_323
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.4  5 2206 6065272  138
+PASS
+ok  	6.824/raft	35.411s
+test_num_324
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.8  5 2081 4649236  162
+PASS
+ok  	6.824/raft	33.843s
+test_num_325
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  39.3  5 2597 9080615  159
+PASS
+ok  	6.824/raft	39.306s
+test_num_326
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.0  5 2026 3307791  134
+PASS
+ok  	6.824/raft	33.010s
+test_num_327
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  38.3  5 2370 6172745  140
+PASS
+ok  	6.824/raft	38.285s
+test_num_328
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  39.1  5 2537 9119720  178
+PASS
+ok  	6.824/raft	39.085s
+test_num_329
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.2  5 1832 2891865  217
+PASS
+ok  	6.824/raft	30.198s
+test_num_330
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  29.3  5 1729 4275190   35
+PASS
+ok  	6.824/raft	29.336s
+test_num_331
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.0  5 2213 4083194  185
+PASS
+ok  	6.824/raft	35.029s
+test_num_332
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.9  5 2017 7068833   57
+PASS
+ok  	6.824/raft	33.938s
+test_num_333
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.8  5 2302 8892071  200
+PASS
+ok  	6.824/raft	33.827s
+test_num_334
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.5  5 2084 4820569  322
+PASS
+ok  	6.824/raft	33.470s
+test_num_335
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.5  5 2321 5417506  477
+PASS
+ok  	6.824/raft	37.475s
+test_num_336
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.9  5 2337 4782513  563
+PASS
+ok  	6.824/raft	36.899s
+test_num_337
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  29.7  5 1849 6485084   98
+PASS
+ok  	6.824/raft	29.742s
+test_num_338
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.7  5 2141 3192814  110
+PASS
+ok  	6.824/raft	35.675s
+test_num_339
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.7  5 2032 4543190  364
+PASS
+ok  	6.824/raft	33.713s
+test_num_340
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.1  5 2158 5472044  565
+PASS
+ok  	6.824/raft	35.088s
+test_num_341
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  39.4  5 2371 4141345  161
+PASS
+ok  	6.824/raft	39.417s
+test_num_342
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  39.0  5 2421 3826125  445
+PASS
+ok  	6.824/raft	38.976s
+test_num_343
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.5  5 2380 6018659  117
+PASS
+ok  	6.824/raft	37.491s
+test_num_344
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  27.1  5 1542 2782625   98
+PASS
+ok  	6.824/raft	27.114s
+test_num_345
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.0  5 2135 3029566   43
+PASS
+ok  	6.824/raft	36.016s
+test_num_346
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.1  5 2165 4967085  205
+PASS
+ok  	6.824/raft	35.087s
+test_num_347
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.4  5 1779 4356699  417
+PASS
+ok  	6.824/raft	30.439s
+test_num_348
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.6  5 2210 4664113   68
+PASS
+ok  	6.824/raft	34.615s
+test_num_349
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  28.3  5 1684 5613908   78
+PASS
+ok  	6.824/raft	28.273s
+test_num_350
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.6  5 2393 5309761  425
+PASS
+ok  	6.824/raft	36.651s
+test_num_351
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.2  5 2214 4471962  175
+PASS
+ok  	6.824/raft	36.238s
+test_num_352
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.3  5 2176 4799049   85
+PASS
+ok  	6.824/raft	34.273s
+test_num_353
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  39.2  5 2555 9268396   78
+PASS
+ok  	6.824/raft	39.180s
+test_num_354
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.3  5 2082 3636309  262
+PASS
+ok  	6.824/raft	35.278s
+test_num_355
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.8  5 1950 2674565  140
+PASS
+ok  	6.824/raft	31.851s
+test_num_356
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  27.5  5 1453 1830688   18
+PASS
+ok  	6.824/raft	27.530s
+test_num_357
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.8  5 2168 4165082  118
+PASS
+ok  	6.824/raft	35.791s
+test_num_358
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.2  5 2172 4919520   87
+PASS
+ok  	6.824/raft	36.177s
+test_num_359
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.7  5 2259 4804603  434
+PASS
+ok  	6.824/raft	35.718s
+test_num_360
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.4  5 2170 4982385  293
+PASS
+ok  	6.824/raft	34.389s
+test_num_361
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.0  5 1939 4773970   60
+PASS
+ok  	6.824/raft	32.044s
+test_num_362
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.9  5 2116 3231561  149
+PASS
+ok  	6.824/raft	34.936s
+test_num_363
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  29.4  5 1809 3669679  234
+PASS
+ok  	6.824/raft	29.423s
+test_num_364
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  39.1  5 2267 5338489  139
+PASS
+ok  	6.824/raft	39.117s
+test_num_365
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.0  5 2086 4696615   81
+PASS
+ok  	6.824/raft	34.969s
+test_num_366
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  40.2  5 2559 4896389  502
+PASS
+ok  	6.824/raft	40.196s
+test_num_367
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  28.2  5 1717 3458170  102
+PASS
+ok  	6.824/raft	28.242s
+test_num_368
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  39.7  5 2597 5189381  576
+PASS
+ok  	6.824/raft	39.753s
+test_num_369
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.1  5 1986 3757755   95
+PASS
+ok  	6.824/raft	32.138s
+test_num_370
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.4  5 2016 2764952  315
+PASS
+ok  	6.824/raft	35.408s
+test_num_371
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.8  5 1932 7335190  528
+PASS
+ok  	6.824/raft	30.776s
+test_num_372
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.4  5 2070 3290032  165
+PASS
+ok  	6.824/raft	33.415s
+test_num_373
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.0  5 2201 6705961  481
+PASS
+ok  	6.824/raft	36.002s
+test_num_374
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.2  5 2189 8037648  140
+PASS
+ok  	6.824/raft	35.195s
+test_num_375
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.3  5 2317 4648189  425
+PASS
+ok  	6.824/raft	36.264s
+test_num_376
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.1  5 2225 4707847  311
+PASS
+ok  	6.824/raft	34.104s
+test_num_377
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.3  5 2266 5233981   90
+PASS
+ok  	6.824/raft	34.298s
+test_num_378
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.1  5 2275 4808240  165
+PASS
+ok  	6.824/raft	36.148s
+test_num_379
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.9  5 2118 4140265  385
+PASS
+ok  	6.824/raft	34.874s
+test_num_380
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  40.4  5 2539 2777416  167
+PASS
+ok  	6.824/raft	40.365s
+test_num_381
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.1  5 2405 6347095  373
+PASS
+ok  	6.824/raft	37.139s
+test_num_382
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  39.9  5 2563 5203843  129
+PASS
+ok  	6.824/raft	39.947s
+test_num_383
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.1  5 2054 4181292   36
+PASS
+ok  	6.824/raft	31.091s
+test_num_384
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.2  5 1609 1994602   73
+PASS
+ok  	6.824/raft	30.224s
+test_num_385
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.7  5 1843 4164316   36
+PASS
+ok  	6.824/raft	30.723s
+test_num_386
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.5  5 1761 4293087   51
+PASS
+ok  	6.824/raft	31.515s
+test_num_387
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.0  5 2012 2740124  165
+PASS
+ok  	6.824/raft	32.018s
+test_num_388
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  39.0  5 2598 3722585  207
+PASS
+ok  	6.824/raft	38.968s
+test_num_389
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.2  5 2112 5660627   28
+PASS
+ok  	6.824/raft	36.211s
+test_num_390
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.6  5 1977 6861117  633
+PASS
+ok  	6.824/raft	32.651s
+test_num_391
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.5  5 2005 2929750  174
+PASS
+ok  	6.824/raft	33.544s
+test_num_392
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.3  5 2040 3436914  302
+PASS
+ok  	6.824/raft	32.279s
+test_num_393
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  40.4  5 2592 4161167   83
+PASS
+ok  	6.824/raft	40.425s
+test_num_394
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.5  5 1881 4090213  662
+PASS
+ok  	6.824/raft	33.501s
+test_num_395
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.8  5 2079 3083658   50
+PASS
+ok  	6.824/raft	34.819s
+test_num_396
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.1  5 1897 2409735  116
+PASS
+ok  	6.824/raft	32.091s
+test_num_397
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.3  5 2242 4128594  193
+PASS
+ok  	6.824/raft	35.257s
+test_num_398
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  29.8  5 1727 2803213  161
+PASS
+ok  	6.824/raft	29.798s
+test_num_399
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.9  5 2018 4356907  399
+PASS
+ok  	6.824/raft	32.879s
+test_num_400
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.3  5 2412 4774032   73
+PASS
+ok  	6.824/raft	37.298s
+test_num_401
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.2  5 2125 4361925  218
+PASS
+ok  	6.824/raft	34.206s
+test_num_402
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.1  5 1910 3153541   88
+PASS
+ok  	6.824/raft	31.060s
+test_num_403
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.3  5 2040 4042140  549
+PASS
+ok  	6.824/raft	33.325s
+test_num_404
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.0  5 2001 4025580  123
+PASS
+ok  	6.824/raft	33.033s
+test_num_405
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.2  5 2028 4464153   73
+PASS
+ok  	6.824/raft	33.159s
+test_num_406
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  28.8  5 1768 5442086  113
+PASS
+ok  	6.824/raft	28.809s
+test_num_407
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.9  5 1919 4141819  370
+PASS
+ok  	6.824/raft	31.863s
+test_num_408
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  43.5  5 2761 6729395  183
+PASS
+ok  	6.824/raft	43.505s
+test_num_409
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.9  5 2414 3726442   95
+PASS
+ok  	6.824/raft	37.876s
+test_num_410
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.7  5 2160 7731955  196
+PASS
+ok  	6.824/raft	34.710s
+test_num_411
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.3  5 2175 4442774  103
+PASS
+ok  	6.824/raft	34.293s
+test_num_412
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.3  5 2209 3429715  381
+PASS
+ok  	6.824/raft	35.349s
+test_num_413
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.2  5 2135 3390441   58
+PASS
+ok  	6.824/raft	34.205s
+test_num_414
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.4  5 1986 5281649  147
+PASS
+ok  	6.824/raft	35.423s
+test_num_415
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.9  5 1769 3739750  107
+PASS
+ok  	6.824/raft	30.910s
+test_num_416
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.9  5 2139 5558662  339
+PASS
+ok  	6.824/raft	32.936s
+test_num_417
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.7  5 1914 1990721  236
+PASS
+ok  	6.824/raft	34.750s
+test_num_418
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.1  5 1919 5139849   45
+PASS
+ok  	6.824/raft	31.135s
+test_num_419
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.2  5 1927 4615006   65
+PASS
+ok  	6.824/raft	31.177s
+test_num_420
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.1  5 2413 4988631   98
+PASS
+ok  	6.824/raft	37.077s
+test_num_421
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.4  5 1903 5828873  181
+PASS
+ok  	6.824/raft	31.368s
+test_num_422
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.9  5 2037 3203583   71
+PASS
+ok  	6.824/raft	33.931s
+test_num_423
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.5  5 2194 5397544  198
+PASS
+ok  	6.824/raft	34.487s
+test_num_424
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.9  5 1864 3569299  159
+PASS
+ok  	6.824/raft	31.890s
+test_num_425
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.7  5 2102 3228671  123
+PASS
+ok  	6.824/raft	32.752s
+test_num_426
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.9  5 1913 3783664  459
+PASS
+ok  	6.824/raft	32.893s
+test_num_427
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  28.3  5 1657 3296780  116
+PASS
+ok  	6.824/raft	28.341s
+test_num_428
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.8  5 1883 3899451  283
+PASS
+ok  	6.824/raft	32.795s
+test_num_429
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  29.9  5 1756 2567807  399
+PASS
+ok  	6.824/raft	29.913s
+test_num_430
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.5  5 2220 3952950  372
+PASS
+ok  	6.824/raft	36.497s
+test_num_431
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.3  5 2140 4808326  748
+PASS
+ok  	6.824/raft	34.258s
+test_num_432
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.6  5 2343 6091187  162
+PASS
+ok  	6.824/raft	36.625s
+test_num_433
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.5  5 2465 5981260  445
+PASS
+ok  	6.824/raft	37.532s
+test_num_434
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  39.9  5 2574 7760454   86
+PASS
+ok  	6.824/raft	39.929s
+test_num_435
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.1  5 1772 3484172  217
+PASS
+ok  	6.824/raft	30.085s
+test_num_436
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.8  5 2126 3749788  145
+PASS
+ok  	6.824/raft	33.803s
+test_num_437
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.1  5 1988 5648231  142
+PASS
+ok  	6.824/raft	32.083s
+test_num_438
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.2  5 2151 3730410  130
+PASS
+ok  	6.824/raft	36.207s
+test_num_439
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.7  5 1916 2845713  127
+PASS
+ok  	6.824/raft	30.674s
+test_num_440
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.8  5 2196 3356233  175
+PASS
+ok  	6.824/raft	35.800s
+test_num_441
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.8  5 1851 4313277  297
+PASS
+ok  	6.824/raft	30.799s
+test_num_442
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.7  5 2167 3058438   99
+PASS
+ok  	6.824/raft	34.750s
+test_num_443
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  38.2  5 2266 4631239  591
+PASS
+ok  	6.824/raft	38.190s
+test_num_444
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.2  5 2210 3609417  190
+PASS
+ok  	6.824/raft	37.240s
+test_num_445
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.8  5 2232 4826741  316
+PASS
+ok  	6.824/raft	33.813s
+test_num_446
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.3  5 2148 3688527  395
+PASS
+ok  	6.824/raft	34.274s
+test_num_447
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.8  5 1928 3582014   79
+PASS
+ok  	6.824/raft	35.851s
+test_num_448
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.1  5 1907 4996549  716
+PASS
+ok  	6.824/raft	32.138s
+test_num_449
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.5  5 2183 3879209   44
+PASS
+ok  	6.824/raft	33.482s
+test_num_450
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  27.6  5 1680 4201294  227
+PASS
+ok  	6.824/raft	27.646s
+test_num_451
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.4  5 2164 7391303  117
+PASS
+ok  	6.824/raft	35.355s
+test_num_452
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  38.0  5 2210 3701019  113
+PASS
+ok  	6.824/raft	38.000s
+test_num_453
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.9  5 2141 4650570  253
+PASS
+ok  	6.824/raft	35.854s
+test_num_454
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.8  5 1928 3701533  341
+PASS
+ok  	6.824/raft	31.833s
+test_num_455
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.4  5 1905 4275755  405
+PASS
+ok  	6.824/raft	30.399s
+test_num_456
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.7  5 1900 4673556  215
+PASS
+ok  	6.824/raft	31.674s
+test_num_457
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.7  5 2235 4129204  559
+PASS
+ok  	6.824/raft	35.687s
+test_num_458
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.2  5 2128 3615447   89
+PASS
+ok  	6.824/raft	33.230s
+test_num_459
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  39.6  5 2638 5566163  334
+PASS
+ok  	6.824/raft	39.580s
+test_num_460
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.0  5 2100 5561821  108
+PASS
+ok  	6.824/raft	34.010s
+test_num_461
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.5  5 1992 3927454  287
+PASS
+ok  	6.824/raft	31.461s
+test_num_462
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.2  5 2018 6853969  328
+PASS
+ok  	6.824/raft	31.205s
+test_num_463
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.2  5 1974 3762697  227
+PASS
+ok  	6.824/raft	30.207s
+test_num_464
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.3  5 2396 5762928  238
+PASS
+ok  	6.824/raft	36.284s
+test_num_465
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.4  5 1859 5805364   46
+PASS
+ok  	6.824/raft	30.358s
+test_num_466
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.6  5 2060 3870240  322
+PASS
+ok  	6.824/raft	32.637s
+test_num_467
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  39.9  5 2493 4808905   69
+PASS
+ok  	6.824/raft	39.938s
+test_num_468
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.9  5 2580 8012703  106
+PASS
+ok  	6.824/raft	37.901s
+test_num_469
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.3  5 2153 3754229  138
+PASS
+ok  	6.824/raft	34.298s
+test_num_470
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.8  5 1641 2099417  327
+PASS
+ok  	6.824/raft	30.796s
+test_num_471
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  38.0  5 2420 4748539  148
+PASS
+ok  	6.824/raft	37.980s
+test_num_472
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.1  5 2175 5476370  293
+PASS
+ok  	6.824/raft	34.084s
+test_num_473
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  32.6  5 2045 4215773  374
+PASS
+ok  	6.824/raft	32.589s
+test_num_474
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.8  5 2184 4193011  164
+PASS
+ok  	6.824/raft	31.822s
+test_num_475
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.3  5 1794 3261846   68
+PASS
+ok  	6.824/raft	30.287s
+test_num_476
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  39.1  5 2550 8381806   79
+PASS
+ok  	6.824/raft	39.062s
+test_num_477
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.5  5 2120 7644790  437
+PASS
+ok  	6.824/raft	33.552s
+test_num_478
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.3  5 2110 4847284  362
+PASS
+ok  	6.824/raft	35.270s
+test_num_479
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.2  5 2195 5679976  471
+PASS
+ok  	6.824/raft	35.248s
+test_num_480
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  39.5  5 2507 4840736  637
+PASS
+ok  	6.824/raft	39.478s
+test_num_481
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.0  5 1980 3844551  313
+PASS
+ok  	6.824/raft	34.036s
+test_num_482
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.5  5 2370 7376589  225
+PASS
+ok  	6.824/raft	35.480s
+test_num_483
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.7  5 2022 6599502  102
+PASS
+ok  	6.824/raft	33.694s
+test_num_484
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.5  5 1937 2246682  209
+PASS
+ok  	6.824/raft	33.466s
+test_num_485
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  29.9  5 1407  811772   25
+PASS
+ok  	6.824/raft	29.905s
+test_num_486
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.5  5 2359 4087064   57
+PASS
+ok  	6.824/raft	37.482s
+test_num_487
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  31.2  5 1900 3544119  292
+PASS
+ok  	6.824/raft	31.221s
+test_num_488
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.2  5 2144 4791677  552
+PASS
+ok  	6.824/raft	34.164s
+test_num_489
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.9  5 2223 3318615  448
+PASS
+ok  	6.824/raft	35.860s
+test_num_490
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.3  5 2377 4685068  352
+PASS
+ok  	6.824/raft	36.336s
+test_num_491
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.5  5 2081 6990722  201
+PASS
+ok  	6.824/raft	34.535s
+test_num_492
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.9  5 2192 7286430  602
+PASS
+ok  	6.824/raft	34.913s
+test_num_493
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  33.3  5 2049 5520358   86
+PASS
+ok  	6.824/raft	33.344s
+test_num_494
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  37.3  5 2349 4918690  364
+PASS
+ok  	6.824/raft	37.268s
+test_num_495
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  36.2  5 2205 6713389  518
+PASS
+ok  	6.824/raft	36.193s
+test_num_496
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.8  5 2063 2618638  186
+PASS
+ok  	6.824/raft	34.789s
+test_num_497
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  34.3  5 2089 3828529  116
+PASS
+ok  	6.824/raft	34.351s
+test_num_498
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  30.6  5 2008 5965397  343
+PASS
+ok  	6.824/raft	30.634s
+test_num_499
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  29.6  5 1924 5320416  106
+PASS
+ok  	6.824/raft	29.581s
+test_num_500
+Test (2C): Figure 8 (unreliable) ...
+  ... Passed --  35.2  5 2132 7495383  190
+PASS
+ok  	6.824/raft	35.195s

@@ -22,47 +22,52 @@ type RequestVoteReply struct {
 	VoteGranted bool
 }
 
-func (rf *Raft) startElection() {
-	request := rf.genVoteArgs()
+func (rf *Raft) startElection(request *RequestVoteArgs, currentTerm int) {
 	grantedVotes := 1
-	rf.votedFor = rf.me
-	rf.persist()
 	for peer := range rf.peers {
 		if peer == rf.me {
 			continue
 		}
 		go func(peer int) {
 			response := new(RequestVoteReply)
+			DPrintf("{Node%v} send requestvote to {Node%v} in term%v", rf.me, peer, currentTerm)
 			if rf.sendRequestVote(peer, request, response) {
 				rf.mu.Lock()
 				defer rf.mu.Unlock()
-				if rf.currentTerm == response.Term && rf.meState == CANDIDATE {
-					if response.VoteGranted {
-						grantedVotes += 1
-						if grantedVotes > len(rf.peers)/2 {
-							DPrintf("{Node %v} receives majority votes in Term %v, receives %v vote", rf.me, rf.currentTerm, grantedVotes)
-							for i := range rf.peers {
-								if i == rf.me {
-									continue
-								}
-								rf.nextIndex[i] = len(rf.log) + rf.log[0].SnapshotIndex
-								// rf.matchIndex[i] = rf.log[0].SnapshotIndex
-								rf.matchIndex[i] = 0
+				if request.Term != rf.currentTerm {
+					return
+				}
+				if currentTerm < rf.currentTerm || rf.meState != CANDIDATE {
+					return
+				}
+				if response.Term > rf.currentTerm {
+					rf.meState = FOLLOWER
+					rf.currentTerm = response.Term
+					rf.persist()
+					return
+				}
+				// if rf.currentTerm == request.Term && rf.meState == CANDIDATE {
+				if response.VoteGranted {
+					DPrintf("{Node%v} receive granted from {Node%v}", rf.me, peer)
+					grantedVotes += 1
+					if grantedVotes > len(rf.peers)/2 {
+						DPrintf("{Node %v} receives majority votes in Term %v, receives %v vote", rf.me, rf.currentTerm, grantedVotes)
+						for i := range rf.peers {
+							if i == rf.me {
+								continue
 							}
-							rf.meState = LEADER
-							rf.votedFor = -1
-							rf.persist()
-							// rf.broadcastHeartBeat()
-							rf.broadcastHeartBeat(true)
-							rf.heartbeatTimer.Reset(HEART_BEAT_TIMEOUT)
-							return
+							rf.nextIndex[i] = rf.log[len(rf.log)-1].SnapshotIndex + 1
+							rf.matchIndex[i] = 0
 						}
-					} else if response.Term > rf.currentTerm {
-						rf.meState = FOLLOWER
-						rf.currentTerm, rf.votedFor = response.Term, -1
-						rf.persist()
+						rf.matchIndex[rf.me] = rf.log[len(rf.log)-1].SnapshotIndex
+						rf.meState = LEADER
+
+						rf.heartbeatTimer.Reset(HEART_BEAT_TIMEOUT)
+						rf.broadcastHeartBeat(true)
+						return
 					}
 				}
+				// }
 			}
 		}(peer)
 	}
@@ -76,42 +81,41 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 	// candidate Term out of date reject
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
-	if args.Term < rf.currentTerm || (args.Term == rf.currentTerm && rf.votedFor != -1 && rf.votedFor != args.CandidateId) {
+	defer rf.persist()
+	if args.Term < rf.currentTerm {
 		// 已经选出新的leader，request term过期， 返回新的term
 		reply.Term = rf.currentTerm
 		reply.VoteGranted = false
 		return
 	}
+
 	if args.Term > rf.currentTerm {
-		DPrintf("server %v outdated in requestvote", rf.me)
 		rf.meState = FOLLOWER
-		rf.currentTerm, rf.votedFor = args.Term, -1
-		rf.persist()
+		rf.votedFor, rf.currentTerm = -1, args.Term
 	}
+
+	if rf.votedFor != -1 && rf.votedFor != args.CandidateId {
+		reply.VoteGranted, reply.Term = false, rf.currentTerm
+		return
+	}
+
 	if !rf.isLogUpToDate(args.LastLogTerm, args.LastLogIndex) {
 		reply.Term, reply.VoteGranted = rf.currentTerm, false
 		return
 	}
 	// granted
-	rf.electionTimer.Reset(generateRandTime())
+	// rf.electionTimer.Reset(generateRandTime())
+	rf.resetElectionTimer()
 	rf.votedFor = args.CandidateId
-	rf.persist()
 	reply.VoteGranted = true
-	reply.Term = args.Term
+	reply.Term = rf.currentTerm
 }
 
 // isLogUpToDate check log
 func (rf *Raft) isLogUpToDate(lastLogTerm int, lastLogIndex int) bool {
-	if lastLogTerm > rf.log[len(rf.log)-1].Term {
-		return true
-	}
-	if lastLogTerm < rf.log[len(rf.log)-1].Term {
-		return false
-	}
-	if lastLogIndex < rf.log[len(rf.log)-1].SnapshotIndex {
-		return false
-	}
-	return true
+	lastIndex := rf.log[len(rf.log)-1].SnapshotIndex
+	lastTerm := rf.log[len(rf.log)-1].Term
+	return lastLogTerm > lastTerm || (lastLogTerm == lastTerm && lastLogIndex >= lastIndex)
 }
 
 //
